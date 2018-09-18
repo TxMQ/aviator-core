@@ -181,17 +181,18 @@ public class ExoPlatformLocator {
 		
 		//TODO:  Backport multiple logger feature
 		//configure block logging, if indicated in the config file
-		if (AviatorConfig.has("blockLogger") && ExoPlatformLocator.testState == null) {
-			try {
-				BlockLoggerConfig loggerConfig = (BlockLoggerConfig) AviatorConfig.get("blockLogger");
-				Class<? extends IBlockLogger> loggerClass = 
-					(Class<? extends IBlockLogger>) Class.forName(loggerConfig.loggerClass);
-				IBlockLogger logger = loggerClass.newInstance();
-				logger.configure(loggerConfig.parameters);
-				blockLogger.setLogger(logger, platform.getAddress().getSelfName());
-			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-				throw new IllegalArgumentException("Error configuring block logger:  " + e.getMessage());
-			}			
+		if (AviatorConfig.has("blockLoggers") && ExoPlatformLocator.testState == null) {
+			for (BlockLoggerConfig loggerConfig : (List<BlockLoggerConfig>) AviatorConfig.get("blockLoggers")) {
+				try {
+					Class<? extends IBlockLogger> loggerClass = 
+						(Class<? extends IBlockLogger>) Class.forName(loggerConfig.loggerClass);
+					IBlockLogger logger = loggerClass.newInstance();
+					logger.configure(loggerConfig.parameters);
+					blockLogger.addLogger(logger, platform.getAddress().getSelfName());
+				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+					throw new IllegalArgumentException("Error configuring block logger:  " + e.getMessage());
+				}	
+			}
 		}				
 	}
 	
@@ -300,7 +301,7 @@ public class ExoPlatformLocator {
 		throws ReflectiveOperationException
 	{
 		init(platform, transactionProcessorPackages);
-		blockLogger.setLogger(logger,  platform.getAddress().getSelfName());
+		blockLogger.addLogger(logger,  platform.getAddress().getSelfName());
 	}	
 	
 	/**
