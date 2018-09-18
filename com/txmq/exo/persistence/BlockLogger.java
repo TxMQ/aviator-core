@@ -1,10 +1,11 @@
 package com.txmq.exo.persistence;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.txmq.exo.messaging.ExoMessage;
-import com.txmq.exo.persistence.nulllogger.NullBlockLogger;
 
 /**
  * BlockLogger is the manager class for Exo's "low rent" blockchain transaction
@@ -24,21 +25,22 @@ public class BlockLogger {
 	 * name to work around the problem.  It should cause minimal overhead when used 
 	 * in a production setting.
 	 */
-	private Map<String, IBlockLogger> loggers = new HashMap<String, IBlockLogger>();
+	private Map<String, List<IBlockLogger>> loggers = new HashMap<String, List<IBlockLogger>>();
 	
 	/**
-	 * Setter for assingning a logger to a node and 
-	 * making it available through a static accessor.
+	 * Adds a logger to a node and makes it available through a static accessor.
 	 */
-	public void setLogger(IBlockLogger logger, String nodeName) {
-		//BlockLogger.logger = logger;
-		loggers.put(nodeName, logger);
+	public void addLogger(IBlockLogger logger, String nodeName) {
+		if (!loggers.containsKey(nodeName)) {
+			loggers.put(nodeName, new ArrayList<IBlockLogger>());
+		}
+		loggers.get(nodeName).add(logger);
 	}
 	
 	/**
 	 * Retrieves the logger associated with the supplied node name
 	 */
-	public IBlockLogger getLogger(String nodeName) {
+	public List<IBlockLogger> getLoggers(String nodeName) {
 		return loggers.get(nodeName);
 	}
 	
@@ -49,18 +51,16 @@ public class BlockLogger {
 	 * automatically registered so execution can procees.
 	 */
 	public void addTransaction(ExoMessage<?> transaction, String nodeName) {
-		//TODO:  Figure out a way to cut in notification that a transaction has reached consensus and has been processed by the hashgraph.
-		IBlockLogger logger = getLogger(nodeName);
-		if (logger == null) {
-			setLogger(new NullBlockLogger(), nodeName);
-			logger = getLogger(nodeName);
+		for (IBlockLogger logger : this.getLoggers(nodeName)) {
+			logger.addTransaction(transaction);
 		}
-		getLogger(nodeName).addTransaction(transaction);
 	}
 	
 	public void flushLoggers() {
-		for (String nodeName : this.loggers.keySet()) {
-			this.getLogger(nodeName).flush();
+		for (List<IBlockLogger> loggers : this.loggers.values()) {
+			for (IBlockLogger logger : loggers) {
+				logger.flush();
+			}
 		}
 	}
 }
