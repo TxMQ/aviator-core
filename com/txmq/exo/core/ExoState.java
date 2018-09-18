@@ -1,7 +1,6 @@
 package com.txmq.exo.core;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;

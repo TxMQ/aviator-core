@@ -1,16 +1,12 @@
 package com.txmq.exo.config;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import javax.ws.rs.core.GenericType;
 
 import java.util.Map.Entry;
 
@@ -60,7 +56,6 @@ public class AviatorConfig {
 					}
 				} else {
 					configs.put(node.getKey(), mapper.treeToValue(node.getValue(), Object.class));
-					int y = 0;
 				}
 				
 			}

@@ -6,7 +6,6 @@ import com.txmq.exo.core.ExoState;
 import com.txmq.exo.messaging.AviatorCoreTransactionTypes;
 import com.txmq.exo.messaging.AviatorTransactionType;
 import com.txmq.exo.messaging.ExoMessage;
-import com.txmq.exo.messaging.AviatorTransactionType.NamespaceEntry;
 import com.txmq.exo.pipeline.PlatformEvents;
 import com.txmq.exo.pipeline.metadata.ExoHandler;
 
