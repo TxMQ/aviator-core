@@ -11,7 +11,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.txmq.exo.core.ExoPlatformLocator;
-import com.txmq.exo.core.ExoState;
 import com.txmq.exo.messaging.AviatorTransactionType;
 import com.txmq.exo.messaging.AviatorCoreTransactionTypes;
 import com.txmq.exo.messaging.ExoMessage;

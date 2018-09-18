@@ -17,8 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.txmq.exo.messaging.annotations.TransactionType;
 import com.txmq.exo.messaging.annotations.TransactionTypes;
-
-import util.hash.MurmurHash3;
+import com.txmq.exo.util.hash.MurmurHash3;
 
 public class AviatorTransactionType implements Serializable {
 
@@ -43,20 +42,6 @@ public class AviatorTransactionType implements Serializable {
 	
 	private static HashSet<AviatorTransactionType> transactionTypes= new HashSet<AviatorTransactionType>();
 	
-	//TODO:  Add a parameter to exo-config.json to turn duplicate detection on and off
-	private static void registerTransactionType(String namespace, String value) {
-		
-		if (!namespaceHashes.containsKey(namespace)) {
-			namespaceHashes.put(namespace, hash(namespace));
-		}
-		
-		if (!transactionTypeHashes.containsKey(value)) {
-			transactionTypeHashes.put(value, hash(value));
-		}
-		
-		AviatorTransactionType transactionType = new AviatorTransactionType(namespace, value);
-		transactionTypes.add(transactionType);
-	}
 	
 	/**
 	 * Inspects the classpath for classes annotated with @TransactionTypes and 

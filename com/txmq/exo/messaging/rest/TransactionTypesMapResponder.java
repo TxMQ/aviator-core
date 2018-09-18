@@ -7,7 +7,6 @@ import com.txmq.exo.messaging.ExoNotification;
 import com.txmq.exo.pipeline.ReportingEvents;
 import com.txmq.exo.pipeline.metadata.ExoSubscriber;
 import com.txmq.exo.pipeline.subscribers.ExoSubscriberBase;
-import com.txmq.exozoodemo.ZooDemoTransactionTypes;
 
 public class TransactionTypesMapResponder extends ExoSubscriberBase<AsyncResponse> {
 	@ExoSubscriber(	namespace=AviatorCoreTransactionTypes.NAMESPACE,

@@ -9,7 +9,6 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
 
 import org.apache.commons.collections4.keyvalue.DefaultKeyValue;
-import org.apache.commons.collections4.map.HashedMap;
 import org.lightcouch.CouchDbClient;
 
 import com.fasterxml.jackson.core.type.TypeReference;

@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.ws.rs.core.MultivaluedHashMap;
-import javax.ws.rs.core.MultivaluedMap;
 
 import com.txmq.exo.core.ExoPlatformLocator;
 import com.txmq.exo.messaging.ExoMessage;
@@ -24,17 +23,6 @@ public class ExoSubscriberManager {
 	public ExoSubscriberManager() {
 		if (responders == null) {
 			responders = Collections.synchronizedMap(new HashMap<String, Map<ReportingEvents, Map<UUID, Object>>>());
-			
-			/*
-			responders.put(	ReportingEvents.submitted, 
-							Collections.synchronizedMap(new HashMap<UUID, Object>()));
-			responders.put(	ReportingEvents.preConsensusResult, 
-							Collections.synchronizedMap(new HashMap<UUID, Object>()));
-			responders.put(	ReportingEvents.consensusResult, 
-							Collections.synchronizedMap(new HashMap<UUID, Object>()));
-			responders.put(	ReportingEvents.transactionComplete, 
-							Collections.synchronizedMap(new HashMap<UUID, Object>()));
-							*/			
 		}
 		
 		if (responderLookups == null) {

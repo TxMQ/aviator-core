@@ -25,7 +25,6 @@ import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 
-import com.swirlds.platform.Address;
 import com.swirlds.platform.Platform;
 import com.swirlds.platform.SwirldState;
 import com.txmq.exo.config.AviatorConfig;
