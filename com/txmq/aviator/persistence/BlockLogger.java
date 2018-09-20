@@ -41,7 +41,12 @@ public class BlockLogger {
 	 * Retrieves the logger associated with the supplied node name
 	 */
 	public List<IBlockLogger> getLoggers(String nodeName) {
-		return loggers.get(nodeName);
+		if (loggers.containsKey(nodeName)) {
+			return loggers.get(nodeName);
+		} else {
+			return new ArrayList<IBlockLogger>();
+		}
+		
 	}
 	
 	/**
