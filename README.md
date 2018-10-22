@@ -1,7 +1,7 @@
 Aviator Core Framework for Hashgraph Application Development
 ===================================================
 
-[Aviator](http://aviatordlt.com) is a distributed ledger (DLT) application framework developed by [TxMQ, Inc.].  The goal of the Aviator platform is to enable DLT application development using tools and languages commonly used in enterprise application development.  Aviator provides a number of features including smart contract engines in multiple languages, data connectors, developer tooling, and DLT network management capabilities.  
+[Aviator](http://aviatordlt.com) is a distributed ledger (DLT) application framework developed by [TxMQ, Inc.](https://txmq.com).  The goal of the Aviator platform is to enable DLT application development using tools and languages commonly used in enterprise application development.  Aviator provides a number of features including smart contract engines in multiple languages, data connectors, developer tooling, and DLT network management capabilities.  
 
 The Aviator Core Framework grew out of the Exo framework for developing applications on the Swirlds Hashgraph platform.  Hashgraph is a high-performance asynchronous Byzantine fault tolerant (ABFT) consensus mechanism that enables private ledger applications to achieve the kinds of throughput that previously were only available by sacrificing security for the sake of performance.  The Swirlds SDK provides only the consensus mechanism.  Many challenges - structuring an application's architecture, exposing functionality to the outside world, and persisting data for example - remain up to the developer to solve for.  Aviator Core provides many of those features to developers, and the Aviator Platform provides even more.
 
