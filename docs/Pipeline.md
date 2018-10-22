@@ -18,13 +18,13 @@ There are two distinct kinds of events in Aviator.  **Platform events** are emit
 Generally speaking, developers return results to clients by coding **reporting event handlers** and perform transaction processing by coding **platform event handlers**.
 
 ### Events
-* (messageReceived) is emitted when a transaction message enters the pipeline.  The easiest way to get transaction messages into the pipeline is to use the code generators to generate a REST API or WebSocket-based message schema.  For most read-only transactions, (messageReceived) will be the only event your handler will need to listen for.  (messageReceived) is a platform event.
-* (submitted) is emitted when a transaction is submitted to the Swirlds platform.  (submitted) is a reporting event.
-* (executePreConsensus) is emitted when a transaction is ready to be processed pre-consensus - it occurs when handleTransaction() is invoked on the SwirldState for a transaction with the consensus parameter equal to false.  Applications that require processing to occur pre-consensus can register handlers against this event.  (executePreConsensus) is a platform event.
-* (preConsensusResult) is emitted after all pre-consensus processing has completed.  (preConsensusResult) is a reporting event.
-* (executeConsensus) is emitted when a transaction is ready to be processed at consensus - it occurs when handleTransaction() is invoked on the SwirldState for a transaction with the consensus parameter equal to true.  Generally speaking, developers will code handlers for this event when they need to modify state.  (executeConsensus) is a platform event.
-* (preConsensusResult) is emitted after all at-consensus processing has completed.  (consensusResult) is a reporting event.
-* (transactionComplete) is emitted when the transaction has fully completed its lifecycle.  Note that a transaction may not complete the entire pipeline.  It can be interrupted by any handler at any time.  A (transactionComplete) event means no further events will be issued for this transaction, and the state of the message is considered its final result.  (transactionComplete) is a reporting event.
++ (messageReceived) is emitted when a transaction message enters the pipeline.  The easiest way to get transaction messages into the pipeline is to use the code generators to generate a REST API or WebSocket-based message schema.  For most read-only transactions, (messageReceived) will be the only event your handler will need to listen for.  (messageReceived) is a platform event.
++ (submitted) is emitted when a transaction is submitted to the Swirlds platform.  (submitted) is a reporting event.
++ (executePreConsensus) is emitted when a transaction is ready to be processed pre-consensus - it occurs when handleTransaction() is invoked on the SwirldState for a transaction with the consensus parameter equal to false.  Applications that require processing to occur pre-consensus can register handlers against this event.  (executePreConsensus) is a platform event.
++ (preConsensusResult) is emitted after all pre-consensus processing has completed.  (preConsensusResult) is a reporting event.
++ (executeConsensus) is emitted when a transaction is ready to be processed at consensus - it occurs when handleTransaction() is invoked on the SwirldState for a transaction with the consensus parameter equal to true.  Generally speaking, developers will code handlers for this event when they need to modify state.  (executeConsensus) is a platform event.
++ (preConsensusResult) is emitted after all at-consensus processing has completed.  (consensusResult) is a reporting event.
++ (transactionComplete) is emitted when the transaction has fully completed its lifecycle.  Note that a transaction may not complete the entire pipeline.  It can be interrupted by any handler at any time.  A (transactionComplete) event means no further events will be issued for this transaction, and the state of the message is considered its final result.  (transactionComplete) is a reporting event.
 
 ## Transaction Types
 When you implement an application using Aviator, you define the list of transaction types that the application supports through annotations.  See (TransactionTypes.md)[Transaction Types] for more information on defining your transaction types.
@@ -200,65 +200,65 @@ You've probably figured out by now that the code that really does the work - loo
 ### How do I return data from the state?
 
 Write a JAX-RS-annotated method that:
-* Packages up any parameters into an `AviatorMessage`
-* Registers a responder of type AsyncResponse
-* Submits the message
++ Packages up any parameters into an `AviatorMessage`
++ Registers a responder of type AsyncResponse
++ Submits the message
 
 and a platform event handler that:
-* Is annotated with `@AviatorHandler` for the transaction type and (messageReceived) event
-* Looks up the requested data and prepares a result
-* Interrupts the transaction
-* Returns the prepared result
++ Is annotated with `@AviatorHandler` for the transaction type and (messageReceived) event
++ Looks up the requested data and prepares a result
++ Interrupts the transaction
++ Returns the prepared result
 
 and a subscriber method that:
-* Is annotated with `@AviatorSubscriber` for the transaction type and (transactionComplete) event
-* Retrieves the `AsyncResponse` registered in the JAX-RS method
-* Uses the `AsyncResponse` to return a notification
++ Is annotated with `@AviatorSubscriber` for the transaction type and (transactionComplete) event
++ Retrieves the `AsyncResponse` registered in the JAX-RS method
++ Uses the `AsyncResponse` to return a notification
 
 ###How do I process a transaction that modifies the state?
 
 Write a JAX-RS-annotated method that:
-* Packages up any parameters into an `AviatorMessage`
-* Registers a responder of type AsyncResponse
-* Submits the message
++ Packages up any parameters into an `AviatorMessage`
++ Registers a responder of type AsyncResponse
++ Submits the message
 
 and a platform event handler that:
-* Is annotated with `@AviatorHandler` for the transaction type and (executeConsensus) event
-* Validates the transaction and applies state changes
-* Optionally returns a result
++ Is annotated with `@AviatorHandler` for the transaction type and (executeConsensus) event
++ Validates the transaction and applies state changes
++ Optionally returns a result
 
 and a subscriber method that:
-* Is annotated with `@AviatorSubscriber` for the transaction type and (transactionComplete) event
-* Retrieves the `AsyncResponse` registered in the JAX-RS method
-* Uses the `AsyncResponse` to return a notification
++ Is annotated with `@AviatorSubscriber` for the transaction type and (transactionComplete) event
++ Retrieves the `AsyncResponse` registered in the JAX-RS method
++ Uses the `AsyncResponse` to return a notification
 
 ## TL/DR; for socket APIs
 ### How do I return data from the state?
 
 Write a platform event handler that:
-* Is annotated with `@AviatorHandler` for the transaction type and (messageReceived) event
-* Looks up the requested data and prepares a result
-* Interrupts the transaction
-* Returns the prepared result
++ Is annotated with `@AviatorHandler` for the transaction type and (messageReceived) event
++ Looks up the requested data and prepares a result
++ Interrupts the transaction
++ Returns the prepared result
 
 and a subscriber method that:
-* Is annotated with `@AviatorSubscriber` for the transaction type and any events the client is interested in.  Minimally, you should listen for the (transactionComplete) event.
-* Retrieves the `WebSocket` or `Socket` registered in the JAX-RS method
-* Uses the `WebSocket` or `Socket` to return a notification
++ Is annotated with `@AviatorSubscriber` for the transaction type and any events the client is interested in.  Minimally, you should listen for the (transactionComplete) event.
++ Retrieves the `WebSocket` or `Socket` registered in the JAX-RS method
++ Uses the `WebSocket` or `Socket` to return a notification
 
 ### How do I process a transaction that modifies the state?
 
 Write a JAX-RS-annotated method that:
-* Packages up any parameters into an `AviatorMessage`
-* Registers a responder of type AsyncResponse
-* Submits the message
++ Packages up any parameters into an `AviatorMessage`
++ Registers a responder of type AsyncResponse
++ Submits the message
 
 and a platform event handler that:
-* Is annotated with `@AviatorHandler` for the transaction type and (executeConsensus) event
-* Validates the transaction and applies state changes
-* Optionally returns a result
++ Is annotated with `@AviatorHandler` for the transaction type and (executeConsensus) event
++ Validates the transaction and applies state changes
++ Optionally returns a result
 
 and a subscriber method that:
-* Is annotated with `@AviatorSubscriber` for the transaction type and any events the client is interested in.  Minimally, you should listen for the (transactionComplete) event.
-* Retrieves the `WebSocket` or `Socket` registered in the JAX-RS method
-* Uses the `WebSocket` or `Socket` to return a notification
++ Is annotated with `@AviatorSubscriber` for the transaction type and any events the client is interested in.  Minimally, you should listen for the (transactionComplete) event.
++ Retrieves the `WebSocket` or `Socket` registered in the JAX-RS method
++ Uses the `WebSocket` or `Socket` to return a notification
