@@ -200,17 +200,20 @@ You've probably figured out by now that the code that really does the work - loo
 ### How do I return data from the state?
 
 Write a JAX-RS-annotated method that:
+
 + Packages up any parameters into an `AviatorMessage`
 + Registers a responder of type AsyncResponse
 + Submits the message
 
 and a platform event handler that:
+
 + Is annotated with `@AviatorHandler` for the transaction type and (messageReceived) event
 + Looks up the requested data and prepares a result
 + Interrupts the transaction
 + Returns the prepared result
 
 and a subscriber method that:
+
 + Is annotated with `@AviatorSubscriber` for the transaction type and (transactionComplete) event
 + Retrieves the `AsyncResponse` registered in the JAX-RS method
 + Uses the `AsyncResponse` to return a notification
@@ -218,16 +221,19 @@ and a subscriber method that:
 ###How do I process a transaction that modifies the state?
 
 Write a JAX-RS-annotated method that:
+
 + Packages up any parameters into an `AviatorMessage`
 + Registers a responder of type AsyncResponse
 + Submits the message
 
 and a platform event handler that:
+
 + Is annotated with `@AviatorHandler` for the transaction type and (executeConsensus) event
 + Validates the transaction and applies state changes
 + Optionally returns a result
 
 and a subscriber method that:
+
 + Is annotated with `@AviatorSubscriber` for the transaction type and (transactionComplete) event
 + Retrieves the `AsyncResponse` registered in the JAX-RS method
 + Uses the `AsyncResponse` to return a notification
@@ -236,12 +242,14 @@ and a subscriber method that:
 ### How do I return data from the state?
 
 Write a platform event handler that:
+
 + Is annotated with `@AviatorHandler` for the transaction type and (messageReceived) event
 + Looks up the requested data and prepares a result
 + Interrupts the transaction
 + Returns the prepared result
 
 and a subscriber method that:
+
 + Is annotated with `@AviatorSubscriber` for the transaction type and any events the client is interested in.  Minimally, you should listen for the (transactionComplete) event.
 + Retrieves the `WebSocket` or `Socket` registered in the JAX-RS method
 + Uses the `WebSocket` or `Socket` to return a notification
@@ -249,16 +257,19 @@ and a subscriber method that:
 ### How do I process a transaction that modifies the state?
 
 Write a JAX-RS-annotated method that:
+
 + Packages up any parameters into an `AviatorMessage`
 + Registers a responder of type AsyncResponse
 + Submits the message
 
 and a platform event handler that:
+
 + Is annotated with `@AviatorHandler` for the transaction type and (executeConsensus) event
 + Validates the transaction and applies state changes
 + Optionally returns a result
 
 and a subscriber method that:
+
 + Is annotated with `@AviatorSubscriber` for the transaction type and any events the client is interested in.  Minimally, you should listen for the (transactionComplete) event.
 + Retrieves the `WebSocket` or `Socket` registered in the JAX-RS method
 + Uses the `WebSocket` or `Socket` to return a notification
