@@ -30,6 +30,8 @@ A suite of network management tools, tentatively called "Control Tower", which i
 
 We recognize that there is ambiguity in the terminology between Aviator, Aviator Core Framework, Aviator Core Platform, "the framework", "the platform", and all the rest.  We're working on it :)
 
+We have big plans for Aviator as a platform, but we want to stress that **the Aviator Core Framework is free and open source, and will continue to be free and open source.**
+
 ### Comparison Between Aviator Core Framework and Aviator Platform Components
 
 | Feature | Aviator Core Framework | Aviator Navigator | Aviator Runway | Aviator Control Tower |
@@ -37,7 +39,7 @@ We recognize that there is ambiguity in the terminology between Aviator, Aviator
 | Hashgraph Consensus                                                   | *     | *     |       |       |
 | Kafka Consensus                                                       |       | *     |       |       |
 | Plug-in Consensus Model                                               |       | *     |       |       |
-
+| &nbsp; | | | |
 | Pipeline Architecture                                                 | *     | *     |       |       |
 | Event-Driven Transaction Routing                                      | *     | *     |       |       |
 | Compiled-in Java Programming Model                                    | *     | *     |       |       |
@@ -48,7 +50,7 @@ We recognize that there is ambiguity in the terminology between Aviator, Aviator
 | Chaincode Smart Contract Engine                                       |       | *     |       |       |
 | Smart Contract Debugging Tools                                        |       | *     |       |       |
 | Smart Contract Deployment and Management Tools                        |       |       | *     | *     |
-
+| &nbsp; | | | |
 | Plug-In Blockchain Transaction Logger Model                           | *     | *     |       |       |
 | CouchDB Block Logger Driver                                           | *     | *     |       |       |
 | MongoDB Block Logger Driver                                           | O     | *     |       |       |
@@ -59,15 +61,15 @@ We recognize that there is ambiguity in the terminology between Aviator, Aviator
 | MongoDB Datastore Connector Driver                                    |       | *     |       |       |
 | RDBMS (JPA) Datastore Connector Driver                                |       | *     |       |       |
 | Data Management Tools                                                 |       |       | *     | *     |
-
+| &nbsp; | | | |
 | REST Socket APIs                                                      | *     | *     |       |       |
 | Binary Socket APIs                                                    | O     | *     |       |       |
 | Web Socket APIs                                                       | *     | *     |       |       |
 | OpenAPI Code Generators for Aviator                                   |       |       | *     |       |
-
+| &nbsp; | | | |
 | PKI-Based Security Components                                         |       | *     | *     | *     |
 | Integration with LDAP and Active Directory                            |       | *     | *     | *     |
-
+| &nbsp; | | | |
 | Visual Network Design and Monitoring Tool                             |       |       |       | *     |
 | Network Design Scripting Language                                     |       |       |       | *     |
 | "One Click" Network Deployment and Scaling                            |       |       |       | *     |
@@ -76,6 +78,12 @@ We recognize that there is ambiguity in the terminology between Aviator, Aviator
 | Network Security and PKI Management                                   |       |       | *     | *     |
 | Smart Contract Management                                             |       |       |       | *     |
 | Multi-Headed SSH/SFTP                                                 |       |       | *     | *     |
+
+| Legend | |
+|---|---|
+| * | Included |
+| O | Coming Soon |
+|  | Not Included | 
 
 ### More Information
 There's more to learn about building Aviator applications.  First, check out the (Aviator Zoo Demo Application)[https://github.com/txmq/aviator-zoo-demo] and see how the demo is put together.  It illustrates all of the concepts currently supported by Exo, and is dockerized so you can easily run the application stack.
