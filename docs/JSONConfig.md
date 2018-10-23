@@ -116,7 +116,7 @@ REST endpoints are configured using the same configuration object format as sock
 As with socket messaging, if no REST configuration is defined, then REST will be disabled.
 
 ## Configuring Block Logging
-Block logging can be configured by supplying the logger class and a list of logger-specific parameters in the "blockLogger" property.  If no blockLogger is set, logging will be disabled.  The following example shows how to initialize the CouchDB-based logger included in Aviator:
+Block logging can be configured by supplying the logger class and a list of logger-specific parameters in the "blockLoggers" property.  If there is no "blockLoggers" property in the config file, logging will be disabled.  The following example shows how to initialize the CouchDB-based logger included in Aviator Core Framework:
 
 ```json
 "blockLoggers": [
@@ -136,7 +136,7 @@ Block logging can be configured by supplying the logger class and a list of logg
 ```
 Note that the parameters collection is specific to the logger implementation.  Different loggers will expect different parameters.  See the documentation for your specific logger for information on which parameters it expects.
 
-One important change from Exo is that Aviator supports defining multiple block loggers.  This feature makes it easy for developers to set up chains for specific purposes.  Developers can extend block loggers to implement filtering, so that the logger captures only the transactions necessary for your application.  This feature required a change to the configuration file format.  Exo used a "blockLogger" property that was an object type.  Aviator uses a "blockLoggers" property whose type is array.
+One important change from Exo is that Aviator supports defining multiple block loggers.  This feature makes it easy for developers to set up chains for specific purposes.  For example, developers can extend block loggers to implement filtering, so that the logger captures only the transactions necessary for your application.  This feature required a change to the configuration file format.  Exo used a "blockLogger" property that was an object type.  Aviator uses a "blockLoggers" property whose type is array.
 
 ## Configuring Transaction Types
 Aviator uses a different scheme for identifying transaction types than the "pseudo-enum" used in Exo.  It is no longer necessary to configure your transaction type class in the config file.  See [Transaction Types](TransactionTypes.md) for more information.
