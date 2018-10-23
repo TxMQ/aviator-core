@@ -30,7 +30,9 @@ A suite of network management tools, tentatively called "Control Tower", which i
 
 We recognize that there is ambiguity in the terminology between Aviator, Aviator Core Framework, Aviator Core Platform, "the framework", "the platform", and all the rest.  We're working on it :)
 
-We have big plans for Aviator as a platform, but we want to stress that **the Aviator Core Framework is free and open source, and will continue to be free and open source.**
+We have big plans for Aviator as a platform, but we want to stress that **the Aviator Core Framework is free and open source, and will continue to be free and open source.**  
+
+If your organization is interested in interested in the Aviator Platform, please visit (http://aviatordlt.com) and fill out the contact form to start a conversation!
 
 ### Comparison Between Aviator Core Framework and Aviator Platform Components
 
@@ -89,3 +91,5 @@ We have big plans for Aviator as a platform, but we want to stress that **the Av
 There's more to learn about building Aviator applications.  First, check out the (Aviator Zoo Demo Application)[https://github.com/txmq/aviator-zoo-demo] and see how the demo is put together.  It illustrates all of the concepts currently supported by Exo, and is dockerized so you can easily run the application stack.
 
 When you're ready to dive into development, check the [docs folder](docs/README.md) for additional README files that describe how to use each feature in more detail.
+
+If your organization is interested in interested in the Aviator Platform, please visit (http://aviatordlt.com) and fill out the contact form to start a conversation!
