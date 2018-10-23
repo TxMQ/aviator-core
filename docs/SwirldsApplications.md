@@ -23,10 +23,10 @@ We can identify several challenges and architectural issues from the above descr
 * There isn't an architecture for handling transactions in the SwirldState
 * There isn't a good way for an application to get feedback on the success or failure of its transaction
 
-Exo was developed to address these challenges.  Exo (currently) provides:
-* Support for applications to invoke API methods on the Hashgraph using REST or Java Sockets (WebSocket support coming soon) 
+The Aviator Core Framework was developed to address these challenges.  Aviator (currently) provides:
+* Support for applications to invoke API methods on the Hashgraph using REST, WebSockets, or Java Sockets
 * Support for logging incoming transactions to a blockchain data structure outside of the SwirldState
 * An annotation-based routing architecture to connect your SwirldState to transaction processing business logic
-* (Coming Soon) Real-time feedback on transaction success or failure
+* Real-time feedback on transaction success or failure via WebSocket
 
 
