@@ -27,13 +27,13 @@ We use a Maven bill of materials (BOM) to keep each of the framework jars' versi
 ```xml
 <dependencyManagement>
     <dependencies>
-      <dependency>
-				<groupId>com.txmq.aviator</groupId>
-				<artifactId>aviator-core-bom</artifactId>
-				<version>1.0.1</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>		
+        <dependency>
+            <groupId>com.txmq.aviator</groupId>
+            <artifactId>aviator-core-bom</artifactId>
+            <version>1.0.1</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>		
   	</dependencies>
 </dependencyManagement>
 ```
