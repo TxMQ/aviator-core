@@ -3,9 +3,9 @@ Getting Started With Aviator Core
 
 1. Check out the [demo application](https://github.com/txmq/aviator-zoo-demo)
 2. Start coding your own Aviator application
-  * Make a copy of the demo application and build from there, replacing the demo code with your own custom code -or-
-  * Begin from one of the Swirlds demos -or-
-  * Start from scratch
+   * Make a copy of the demo application and build from there, replacing the demo code with your own custom code -or-
+   * Begin from one of the Swirlds demos -or-
+   * Start from scratch
 
 ## Adding Aviator Core to a Swirlds Demo or a From-Scratch Project
 
