@@ -27,6 +27,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 
 import com.swirlds.platform.Platform;
 import com.swirlds.platform.SwirldState;
+import com.swirlds.platform.Transaction;
 import com.txmq.aviator.config.AviatorConfig;
 import com.txmq.aviator.config.model.BlockLoggerConfig;
 import com.txmq.aviator.config.model.MessagingConfig;
@@ -242,7 +243,12 @@ public class PlatformLocator {
 	private static synchronized void initPipelineRouter(List<String> packages) {
 		AviatorPipelineRouter pipelineRouter = new AviatorPipelineRouter();
 		pipelineRouter.init(packages);
-		String nodeName = ((AviatorState) platform.getState()).getMyName();
+		String nodeName = null;
+		try {
+			nodeName = ((AviatorState) platform.getState()).getMyName();
+		} finally {
+			platform.releaseState();
+		}
 		pipelineRouters.put(nodeName, pipelineRouter);
 	}
 	
@@ -251,7 +257,12 @@ public class PlatformLocator {
 	 * @see com.txmq.aviator.pipeline.routers.AviatorPipelineRouter
 	 */	
 	public static synchronized AviatorPipelineRouter getPipelineRouter() {
-		String nodeName = ((AviatorState) platform.getState()).getMyName();
+		String nodeName = null;
+		try {
+			nodeName = ((AviatorState) platform.getState()).getMyName();
+		} finally {
+			platform.releaseState();
+		}
 		return pipelineRouters.get(nodeName);
 	}
 	
@@ -324,6 +335,12 @@ public class PlatformLocator {
 	 * @param restConfig
 	 */
 	public static void initREST(MessagingConfig restConfig) {
+		try {
+			platform.getState();
+		} finally {
+			platform.releaseState();
+		}
+		
 		URI baseUri = UriBuilder.fromUri("http://0.0.0.0").port(restConfig.port).build();
 		ResourceConfig config = new ResourceConfig()
 				.packages("com.txmq.aviator.messaging.rest")
@@ -459,40 +476,46 @@ public class PlatformLocator {
 	 * This signature matches the createTransaction signature of the Swirlds Platform.
 	 */
 	public static void createTransaction(AviatorMessage<? extends Serializable> transaction) throws IOException {
-		//Check if we're running in test mode.
-		long transactionID = new Random().nextLong();
-		Instant timeCreated = Instant.now();
-		AviatorState preConsensusState = null;
-		
-		if (testState != null) {
-			//Test mode..  Get a pre-consensus copy of the state
-			try {
-				preConsensusState = (AviatorState) testState.getClass().getConstructors()[0].newInstance();
-			} catch (Exception e) {
-				// TODO Better error handling..
-				e.printStackTrace();
-			}
+		try {
+			//Check if we're running in test mode.
+			long transactionID = new Random().nextLong();
+			Instant timeCreated = Instant.now();
+			AviatorState preConsensusState = null;
 			
-			preConsensusState.copyFrom((SwirldState) testState);
-			
-			//We have a temporary state constructed.  Run the rest of the pipeline.
-		} else {
-			preConsensusState = getState();
-		}
-		
-		//Process message received handlers
-		getPipelineRouter().routeMessageReceived(transaction, preConsensusState);
-		
-		//If the transaction was not interrupted, submit it to the platform
-		if (transaction.isInterrupted() == false) {
-			byte[] serializedTransaction = transaction.serialize();
 			if (testState != null) {
-				preConsensusState.handleTransaction(transactionID, false, timeCreated, serializedTransaction, null);
-				testState.handleTransaction(transactionID, true, timeCreated, serializedTransaction, null);
+				//Test mode..  Get a pre-consensus copy of the state
+				try {
+					preConsensusState = (AviatorState) testState.getClass().getConstructors()[0].newInstance();
+				} catch (Exception e) {
+					// TODO Better error handling..
+					e.printStackTrace();
+				}
+				
+				preConsensusState.copyFrom((SwirldState) testState);
+				
+				//We have a temporary state constructed.  Run the rest of the pipeline.
 			} else {
-				platform.createTransaction(serializedTransaction);
-				getPipelineRouter().notifySubmitted(transaction);
+				preConsensusState = getState();
 			}
+			
+			String nodeName = preConsensusState.getMyName();
+			
+			//Process message received handlers
+			getPipelineRouter(nodeName).routeMessageReceived(transaction, preConsensusState);
+			
+			//If the transaction was not interrupted, submit it to the platform
+			if (transaction.isInterrupted() == false) {
+				Transaction serializedTransaction = new Transaction(transaction.serialize());
+				if (testState != null) {
+					preConsensusState.handleTransaction(transactionID, false, timeCreated, timeCreated, serializedTransaction, null);
+					testState.handleTransaction(transactionID, true, timeCreated, timeCreated, serializedTransaction, null);
+				} else {
+					platform.createTransaction(serializedTransaction);
+					getPipelineRouter(preConsensusState.getMyName()).notifySubmitted(transaction, nodeName);
+				}
+			}
+		} finally {
+			platform.releaseState();
 		}
 	}
 	
@@ -518,6 +541,9 @@ public class PlatformLocator {
 	 * Developers should prefer this method to ExoPlatformLocator.getPlatform().getState()
 	 * because this method supports returning a state in test mode without initializing
 	 * the platform.
+	 * 
+	 * Note that as of the 18.10.23 SDK you must call platform.releaseState() manually 
+	 * after using PlatformLocator.getState() to access the application state.
 	 */
 	public static AviatorState getState() throws IllegalStateException {
 		if (PlatformLocator.testState == null) {

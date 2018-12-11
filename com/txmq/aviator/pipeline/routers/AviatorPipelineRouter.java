@@ -165,8 +165,8 @@ public class AviatorPipelineRouter {
 		}		
 	}
 	
-	public void notifySubmitted(AviatorMessage<?> message) {
-		this.sendNotification(ReportingEvents.submitted, null, message, PipelineStatus.OK, PlatformLocator.getState().getMyName());
+	public void notifySubmitted(AviatorMessage<?> message, String nodeName) {
+		this.sendNotification(ReportingEvents.submitted, null, message, PipelineStatus.OK, nodeName);
 	}
 	
 	private Serializable route(AviatorMessage<?> message, AviatorState state, AviatorParameterizedRouter<?> router) throws AviatorRoutingException {
