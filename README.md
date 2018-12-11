@@ -93,3 +93,6 @@ There's more to learn about building Aviator applications.  First, check out the
 When you're ready to dive into development, check the [docs folder](docs/README.md) for additional README files that describe how to use each feature in more detail.
 
 If your organization is interested in interested in the Aviator Platform, please visit (http://aviatordlt.com) and fill out the contact form to start a conversation!
+
+###Build and Hashgraph SDK Information
+This brach contains the end-of-life commit for Aviator Core Framework 1.0.1.  This is the last Aviator Core Framework build to support the 18.05.23 SDK.  Subsequent Aviator builds will require the 18.10.23 SDK.
