@@ -56,7 +56,13 @@ public class AviatorSubscriberManager {
 	}
 	
 	public synchronized void registerResponder(AviatorMessage<?> message, ReportingEvents event, Object responderInstance) {	
-		String myName = PlatformLocator.getState().getMyName();
+		String myName = null;
+		try {
+			myName = PlatformLocator.getState().getMyName();
+		} finally {
+			PlatformLocator.getPlatform().releaseState();
+		}
+		
 		getRespondersForNode(myName).get(event).put(message.uuid, responderInstance);
 		
 		if (!responderLookups.containsKey(responderInstance)) {

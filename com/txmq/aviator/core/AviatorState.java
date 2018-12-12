@@ -10,6 +10,7 @@ import com.swirlds.platform.Address;
 import com.swirlds.platform.AddressBook;
 import com.swirlds.platform.Platform;
 import com.swirlds.platform.SwirldState;
+import com.swirlds.platform.Transaction;
 import com.txmq.aviator.messaging.AviatorMessage;
 
 /**
@@ -82,10 +83,10 @@ public class AviatorState {
 	 * TODO:  Make blockchain logging configurable
 	 */
 	public synchronized void handleTransaction(long id, boolean consensus,
-			Instant timeCreated, byte[] transaction, Address address) {
+			Instant timeCreated, Instant timestamp, Transaction transaction, Address address) {
 		
 		try {
-			AviatorMessage<?> message = AviatorMessage.deserialize(transaction);
+			AviatorMessage<?> message = AviatorMessage.deserialize(transaction.getContents());
 			if (consensus == false) {
 				//Route the transaction through the pre-consensus part of the pipeline
 				PlatformLocator.getPipelineRouter(this.myName).routeExecutePreConsensus(message, this);				
