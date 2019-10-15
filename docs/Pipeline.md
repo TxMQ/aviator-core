@@ -70,8 +70,7 @@ The (mesageReceived) event is emitted **before** a transaction is submitted to t
 This example shows how the "get zoo" transaction's (messageReceived) event is handled:
 
 ```java
-@AviatorHandler(
-                namespace=ZooDemoTransactionTypes.NAMESPACE,
+@AviatorHandler(namespace=ZooDemoTransactionTypes.NAMESPACE,
                 transactionType=ZooDemoTransactionTypes.GET_ZOO, 
                 events={PlatformEvents.messageReceived})
 public Zoo getZoo(AviatorMessage<?> message, SocketDemoState state) {
