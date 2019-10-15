@@ -179,7 +179,7 @@ public void getZooTransactionProgress(AviatorNotification<?> notification) {
 For `GET_ZOO`, which is read only, we only care about the end result - either we get an error (which will be attached to the notification) or we get the result.  When we add animals, the transaction moves through the entire pipeline - and we can return information about what's happening to the transaction at each stage:
 
 ```java
-@AviatorSubscriber(	namespace=ZooDemoTransactionTypes.NAMESPACE,
+@AviatorSubscriber(namespace=ZooDemoTransactionTypes.NAMESPACE,
                     transactionType=ZooDemoTransactionTypes.ADD_ANIMAL, 
                     events= {	
                             ReportingEvents.submitted, 
