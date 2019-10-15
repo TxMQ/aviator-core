@@ -41,7 +41,9 @@ Transactions can be received through WebSockets, REST, or Java sockets.  When im
 @Produces(MediaType.APPLICATION_JSON)
 public void addAnimal(Animal animal, @Suspended final AsyncResponse response) {
     AviatorMessage<Animal> message = new AviatorMessage<Animal>(
-            new AviatorTransactionType(ZooDemoTransactionTypes.NAMESPACE, ZooDemoTransactionTypes.ADD_ANIMAL), 
+            new AviatorTransactionType(
+                ZooDemoTransactionTypes.NAMESPACE, 
+                ZooDemoTransactionTypes.ADD_ANIMAL), 
             animal
     );
     this.subscriberManager.registerResponder(message, ReportingEvents.transactionComplete, response);
