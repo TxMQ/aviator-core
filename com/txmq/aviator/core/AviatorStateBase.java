@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.txmq.aviator.core.swirlds.AviatorSwirldsState;
-
 public class AviatorStateBase {
 	/**
 	 * Node name that this state belongs to.  Tracked for disambiguation 
@@ -37,12 +35,13 @@ public class AviatorStateBase {
 		this.endpoints.add(endpoint);
 	}
 
+	//TODO: Ideally we don't want cruft from the REST package polluting AviatorStateBase
 	/**
 	 * This is used in the base framework to make a copy of a state for pre-consensus processing.
 	 * @param old
 	 */
 	public synchronized void copyFrom(AviatorStateBase old) {
-		endpoints = Collections.synchronizedList(new ArrayList<String>(((AviatorSwirldsState) old).endpoints));
+		endpoints = Collections.synchronizedList(new ArrayList<String>(old.endpoints));
 		myName = old.myName;
 	}
 }
