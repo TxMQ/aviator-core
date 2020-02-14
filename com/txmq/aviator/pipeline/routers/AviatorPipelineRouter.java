@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.txmq.aviator.core.Aviator;
 import com.txmq.aviator.core.AviatorStateBase;
-import com.txmq.aviator.core.swirlds.AviatorSwirlds;
 import com.txmq.aviator.messaging.AviatorTransactionType;
 import com.txmq.aviator.messaging.AviatorMessage;
 import com.txmq.aviator.messaging.AviatorNotification;
@@ -166,7 +166,7 @@ public class AviatorPipelineRouter {
 	}
 	
 	public void notifySubmitted(AviatorMessage<?> message) {
-		this.sendNotification(ReportingEvents.submitted, null, message, PipelineStatus.OK, AviatorSwirlds.getState().getMyName());
+		this.sendNotification(ReportingEvents.submitted, null, message, PipelineStatus.OK, Aviator.getState().getMyName());
 	}
 	
 	private Serializable route(AviatorMessage<?> message, AviatorStateBase state, AviatorParameterizedRouter<?> router) throws AviatorRoutingException {
