@@ -17,7 +17,7 @@ import org.reflections.scanners.MethodAnnotationsScanner;
 import com.txmq.aviator.messaging.AviatorTransactionType;
 import com.txmq.aviator.core.AviatorStateBase;
 import com.txmq.aviator.messaging.AviatorMessage;
-import com.txmq.aviator.messaging.websocket.grizzly.AviatorMessageJsonParser;
+import com.txmq.aviator.messaging.AviatorMessageJsonParser;
 import com.txmq.aviator.pipeline.metadata.AviatorNullPayloadType;
 
 /**
