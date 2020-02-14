@@ -9,7 +9,7 @@ import java.util.UUID;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 
-import com.txmq.aviator.core.swirlds.AviatorSwirlds;
+import com.txmq.aviator.core.Aviator;
 import com.txmq.aviator.messaging.AviatorMessage;
 import com.txmq.aviator.messaging.AviatorNotification;
 import com.txmq.aviator.pipeline.ReportingEvents;
@@ -32,7 +32,7 @@ public class AviatorSubscriberManager {
 	
 	private Map<ReportingEvents, Map<UUID, Object>> getRespondersForNode(String nodeName) {
 		if (nodeName == null) {
-			nodeName = AviatorSwirlds.getState().getMyName();
+			nodeName = Aviator.getState().getMyName();
 		}
 		
 		if (!responders.containsKey(nodeName)) {
@@ -56,7 +56,7 @@ public class AviatorSubscriberManager {
 	}
 	
 	public synchronized void registerResponder(AviatorMessage<?> message, ReportingEvents event, Object responderInstance) {	
-		String myName = AviatorSwirlds.getState().getMyName();
+		String myName = Aviator.getState().getMyName();
 		getRespondersForNode(myName).get(event).put(message.uuid, responderInstance);
 		
 		if (!responderLookups.containsKey(responderInstance)) {
@@ -67,7 +67,7 @@ public class AviatorSubscriberManager {
 	}
 	
 	public synchronized void registerAllAvailableResponders(AviatorMessage<?> message, Object responderInstance) {
-		List<ReportingEvents> events = AviatorSwirlds
+		List<ReportingEvents> events = Aviator
 				.getPipelineRouter()
 				.getRegisteredNotificationsForTransactionType(message.transactionType);
 		
