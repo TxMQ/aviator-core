@@ -7,7 +7,7 @@ import org.glassfish.grizzly.websockets.WebSocket;
 import org.glassfish.grizzly.websockets.WebSocketApplication;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.txmq.aviator.core.PlatformLocator;
+import com.txmq.aviator.core.Aviator;
 import com.txmq.aviator.messaging.AviatorMessage;
 import com.txmq.aviator.pipeline.subscribers.AviatorSubscriberManager;
 
@@ -63,7 +63,7 @@ public class AviatorWebSocketApplication extends WebSocketApplication {
          */
         try {
         	subscriberManager.registerAllAvailableResponders(message, socket);
-        	PlatformLocator.createTransaction(message);
+        	Aviator.createTransaction(message);
         } catch (IOException e) {
         	e.printStackTrace();
         }        

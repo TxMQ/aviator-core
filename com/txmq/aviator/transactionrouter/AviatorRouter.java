@@ -14,18 +14,18 @@ import org.reflections.scanners.MethodAnnotationsScanner;
 import com.txmq.aviator.messaging.AviatorTransactionType;
 
 /**
- * ExoTransactionRouter implements an annotation-based transaction routing 
+ * AviatorRouter implements an annotation-based transaction routing 
  * scheme.  To implement, you annotate a transaction processing method with 
  * the ExoTransactionType value that the method handles.
  * 
- * ExoTransactionRouter is a singleton, and is managed by ExoPlatformLocator.
- * Application code doesn't need to instantiate ExoTransactionRouter.  
- * Application code can access the router through ExoPlatformLocator.
+ * AviatorRouter is a singleton, and is managed by AviatorBase.
+ * Application code doesn't need to instantiate AviatorRouter.  
+ * Application code can access the router through AviatorBase.
  * 
  * During initialization, Exo applications should call addPackage() for each
- * package that contains annotated processing methods.  ExoTransactionRouter
+ * package that contains annotated processing methods.  AviatorRouter
  * will scan the package for @ExoTransaction annotations and catalog those
- * methods by the transactiont type they process.
+ * methods by the transaction type they process.
  * 
  * States that inherit from ExoState will automatically route transactions
  * that come into the handleTransaction() method with no additional code 
@@ -61,12 +61,12 @@ public abstract class AviatorRouter<T extends Annotation> {
 	
 	protected Class<? extends Annotation> annotationType;
 	/**
-	 * No-op constructor.  ExoTransactionRouter will be instantiated by 
-	 * ExoPlatformLocator and TransactionServer, and managed by the platform.
+	 * No-op constructor.  AviatorRouter will be instantiated by 
+	 * AviatorBase and TransactionServer, and managed by the platform.
 	 * 
-	 * Applications should not create instances of ExoTransactionRouter.
+	 * Applications should not create instances of AviatorRouter.
 	 * 
-	 * @see com.txmq.aviator.core.PlatformLocator
+	 * @see com.txmq.aviator.core.swirlds.AviatorSwirlds
 	 */
 	@SuppressWarnings("unchecked")
 	public AviatorRouter() {
