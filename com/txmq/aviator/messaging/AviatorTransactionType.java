@@ -11,7 +11,10 @@ import java.util.Set;
 
 import org.apache.commons.collections4.BidiMap;
 import org.apache.commons.collections4.bidimap.DualHashBidiMap;
+
 import org.reflections.Reflections;
+import org.reflections.util.ClasspathHelper;
+import org.reflections.util.ConfigurationBuilder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -54,7 +57,11 @@ public class AviatorTransactionType implements Serializable {
 	 */
 	//TODO:  Offer optimization through a whitelist of transaction type packages in exo-config.json
 	public static void initialize() throws ReflectiveOperationException {
-		Reflections reflections = new Reflections();
+		Reflections reflections = new Reflections(
+			new ConfigurationBuilder()
+				.setUrls(ClasspathHelper.forPackage("com.txmq.aviator"))
+				.setScanners(new MethodAnnotationsScanner())
+		);
 		Set<Class<?>> transactionTypeClasses = reflections.getTypesAnnotatedWith(TransactionTypes.class);
 		for (Class<?> ttc : transactionTypeClasses) {
 			TransactionTypes tta = ttc.getAnnotation(TransactionTypes.class);
