@@ -13,7 +13,7 @@ import java.util.Map.Entry;
 import org.reflections.Reflections;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
-import org.reflections.util.TypeAnnotationScanner;
+import org.reflections.scanners.TypeAnnotationScanner;
 
 import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.JsonNode;
