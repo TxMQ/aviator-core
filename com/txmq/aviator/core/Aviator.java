@@ -85,7 +85,7 @@ public class Aviator {
 		for (Method method : startupMethods) {
 			if (Modifier.isStatic(method.getModifiers())) {
 				try {
-					method.invoke(null, null});
+					method.invoke(null, null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
