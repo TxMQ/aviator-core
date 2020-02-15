@@ -135,6 +135,7 @@ public class Aviator {
 		for (Method method : startupMethods) {
 			if (Modifier.isStatic(method.getModifiers())) {
 				//TODO:  Might have a problem passing an empty array of arguments.
+				System.out.println(method.toString());
 				method.invoke(null, null);
 			}
 		}
