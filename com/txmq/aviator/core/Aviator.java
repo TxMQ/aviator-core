@@ -73,7 +73,12 @@ public class Aviator {
 	public static void shutdown() {
 		shouldShutdown = true;
 
-		Reflections reflections = new Reflections(new MethodAnnotationsScanner());
+		Reflections reflections = new Reflections(
+			new ConfigurationBuilder()
+				.setUrls(ClasspathHelper.forPackage("com"))
+				.setScanners(new MethodAnnotationsScanner())
+		);
+			
 		Set<Method> startupMethods = reflections.getMethodsAnnotatedWith(AviatorShutdown.class);
 		for (Method method : startupMethods) {
 			if (Modifier.isStatic(method.getModifiers())) {
@@ -118,7 +123,12 @@ public class Aviator {
 		initPipelineRouter((List<String>) AviatorConfig.get("transactionProcessors"));
 		
 		// Find any static routines annotated with @AviatorStartup and invoke them
-		Reflections reflections = new Reflections(new MethodAnnotationsScanner());
+		Reflections reflections = new Reflections(
+			new ConfigurationBuilder()
+				.setUrls(ClasspathHelper.forPackage("com"))
+				.setScanners(new MethodAnnotationsScanner())
+		);
+
 		Set<Method> startupMethods = reflections.getMethodsAnnotatedWith(AviatorStartup.class);
 		for (Method method : startupMethods) {
 			if (Modifier.isStatic(method.getModifiers())) {
