@@ -85,7 +85,7 @@ public class Aviator {
 		for (Method method : startupMethods) {
 			if (Modifier.isStatic(method.getModifiers())) {
 				try {
-					method.invoke(null, new Object[] { });
+					method.invoke(null, null});
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -135,7 +135,7 @@ public class Aviator {
 		for (Method method : startupMethods) {
 			if (Modifier.isStatic(method.getModifiers())) {
 				//TODO:  Might have a problem passing an empty array of arguments.
-				method.invoke(null, new Object[] { });
+				method.invoke(null, null);
 			}
 		}
 	}
