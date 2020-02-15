@@ -16,6 +16,7 @@ import org.reflections.Reflections;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 import org.reflections.scanners.TypeAnnotationsScanner;
+import org.reflections.scanners.SubTypesScanner;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -61,7 +62,7 @@ public class AviatorTransactionType implements Serializable {
 		Reflections reflections = new Reflections(
 			new ConfigurationBuilder()
 				.setUrls(ClasspathHelper.forPackage("com.txmq.aviator"))
-				.setScanners(new TypeAnnotationsScanner())
+				.setScanners(new SubTypesScanner(), new TypeAnnotationsScanner())
 		);
 		Set<Class<?>> transactionTypeClasses = reflections.getTypesAnnotatedWith(TransactionTypes.class);
 		for (Class<?> ttc : transactionTypeClasses) {

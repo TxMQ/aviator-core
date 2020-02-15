@@ -14,6 +14,7 @@ import org.reflections.Reflections;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 import org.reflections.scanners.TypeAnnotationsScanner;
+import org.reflections.scanners.SubTypesScanner;
 
 import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -29,7 +30,7 @@ public class AviatorConfig {
 		Reflections reflections = new Reflections(
 			new ConfigurationBuilder()
 				.setUrls(ClasspathHelper.forPackage("com.txmq.aviator"))
-				.setScanners(new TypeAnnotationsScanner())
+				.setScanners(new SubTypesScanner(), new TypeAnnotationsScanner())
 		);
 		
 		Set<Class<?>> processorClasses = reflections.getTypesAnnotatedWith(AviatorConfiguration.class);
