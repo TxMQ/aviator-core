@@ -11,10 +11,6 @@ import java.util.Set;
 import java.util.Map.Entry;
 
 import org.reflections.Reflections;
-import org.reflections.util.ClasspathHelper;
-import org.reflections.util.ConfigurationBuilder;
-import org.reflections.scanners.TypeAnnotationsScanner;
-import org.reflections.scanners.SubTypesScanner;
 
 import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -27,12 +23,7 @@ public class AviatorConfig {
 	
 	public static void loadConfiguration(String path) {
 		Map<String, Class<?>> processors = new HashMap<String, Class<?>>();
-		Reflections reflections = new Reflections(
-			new ConfigurationBuilder()
-				.setUrls(ClasspathHelper.forPackage("com.txmq.aviator"))
-				.setScanners(new SubTypesScanner(), new TypeAnnotationsScanner())
-		);
-		
+		Reflections reflections = new Reflections("com.txmq.aviator");
 		Set<Class<?>> processorClasses = reflections.getTypesAnnotatedWith(AviatorConfiguration.class);
 		for (Class<?> processorClass : processorClasses) {
 			AviatorConfiguration annotation = processorClass.getAnnotation(AviatorConfiguration.class);
