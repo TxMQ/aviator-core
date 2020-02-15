@@ -55,7 +55,7 @@ public class AviatorTestConsensus extends Aviator implements IAviator {
 				//TODO:  Factor this out so logging can be modularized
 				if (transaction.isInterrupted()) {
 					AviatorBlockLoggerBootstrapper.getBlockLogger()
-						.addTransaction(transaction, Aviator.getState().getMyName());
+						.addTransaction(transaction, this.state.getMyName());
 				}
 			} catch (ReflectiveOperationException e) {
 				e.printStackTrace();

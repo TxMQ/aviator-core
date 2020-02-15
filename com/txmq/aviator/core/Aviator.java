@@ -148,7 +148,7 @@ public class Aviator {
 	protected static synchronized void initPipelineRouter(List<String> packages) {
 		AviatorPipelineRouter pipelineRouter = new AviatorPipelineRouter();
 		pipelineRouter.init(packages);
-		String nodeName = implementor.getStateImpl().getMyName();
+		String nodeName = implementor.getNodeNameImpl();
 		pipelineRouters.put(nodeName, pipelineRouter);
 	}
 
@@ -158,7 +158,7 @@ public class Aviator {
 	 * @see com.txmq.aviator.pipeline.routers.AviatorPipelineRouter
 	 */
 	public static synchronized AviatorPipelineRouter getPipelineRouter() {
-		String nodeName = implementor.getStateImpl().getMyName();
+		String nodeName = implementor.getNodeNameImpl();
 		return pipelineRouters.get(nodeName);
 	}
 

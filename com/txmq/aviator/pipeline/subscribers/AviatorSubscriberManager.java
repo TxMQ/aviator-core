@@ -32,7 +32,7 @@ public class AviatorSubscriberManager {
 	
 	private Map<ReportingEvents, Map<UUID, Object>> getRespondersForNode(String nodeName) {
 		if (nodeName == null) {
-			nodeName = Aviator.getState().getMyName();
+			nodeName = Aviator.getNodeName();
 		}
 		
 		if (!responders.containsKey(nodeName)) {
@@ -56,7 +56,7 @@ public class AviatorSubscriberManager {
 	}
 	
 	public synchronized void registerResponder(AviatorMessage<?> message, ReportingEvents event, Object responderInstance) {	
-		String myName = Aviator.getState().getMyName();
+		String myName = Aviator.getNodeName();
 		getRespondersForNode(myName).get(event).put(message.uuid, responderInstance);
 		
 		if (!responderLookups.containsKey(responderInstance)) {
