@@ -77,7 +77,7 @@ public class Aviator {
 
 		Reflections reflections = new Reflections(
 			new ConfigurationBuilder()
-				.setUrls(ClasspathHelper.forPackage("com"))
+				.setUrls(ClasspathHelper.forPackage("com.txmq.aviator"))
 				.setScanners(new MethodAnnotationsScanner())
 		);
 			
@@ -127,7 +127,7 @@ public class Aviator {
 		// Find any static routines annotated with @AviatorStartup and invoke them
 		Reflections reflections = new Reflections(
 			new ConfigurationBuilder()
-				.setUrls(ClasspathHelper.forPackage("com"))
+				.setUrls(ClasspathHelper.forPackage("com.txmq.aviator"))
 				.setScanners(new MethodAnnotationsScanner())
 		);
 
