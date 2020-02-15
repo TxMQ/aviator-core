@@ -188,4 +188,8 @@ public class Aviator {
 	public static int getBasePort() {
 		return implementor.getBasePortImpl();
 	}
+	
+	public static String getNodeName() {
+		return implementor.getNodeNameImpl();
+	}
 }

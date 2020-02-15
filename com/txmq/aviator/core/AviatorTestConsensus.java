@@ -67,4 +67,9 @@ public class AviatorTestConsensus extends Aviator implements IAviator {
 	public int getBasePortImpl() {
 		return 50204;
 	}
+	
+	@Override
+	public String getNodeNameImpl() {
+		return this.state.getMyName();
+	}
 }

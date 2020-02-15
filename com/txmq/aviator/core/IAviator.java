@@ -44,4 +44,12 @@ public interface IAviator {
 	 * @return
 	 */
 	public int getBasePortImpl();
+	
+	/**
+	 * Platform-specific mechanism for retrieving the node name.
+	 * This is effectively only for Swirlds when running multiple
+	 * nodes in the same JVM
+	 * @return
+	 */
+	public String getNodeNameImpl();
 }
