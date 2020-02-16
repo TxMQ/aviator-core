@@ -2,6 +2,7 @@ package com.txmq.aviator.core;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.lang.InstantiationException;
 
 import com.txmq.aviator.blocklogger.AviatorBlockLoggerBootstrapper;
 import com.txmq.aviator.messaging.AviatorMessage;
@@ -18,10 +19,32 @@ public class AviatorTestConsensus extends Aviator implements IAviator {
 	private AviatorStateBase state;
 	
 	
-	protected void initState(AviatorStateBase state) {
+	/**
+	 * Initializes the consensus mechanism with an initial shared state.
+	 *
+	 * @param state Initialized state 
+	 * @return
+	 */
+	@Override
+	public void initState(AviatorStateBase state) {
 		this.state = state;
 	}
-
+	
+	/**
+	 * Initializes the consensus mechanism with an initial shared state from a class.
+	 *
+	 * @param state State class
+	 * @return
+	 */
+	@Override
+	public void initState(Class<? extends AviatorStateBase> stateClass) {	 
+		try {
+			this.state = stateClass.newInstance();
+		} catch (Exception e) {
+			throw new IllegalArgumentException("An error was encountered while instantiating the state class");
+		}
+	}
+	
 	@Override
 	public AviatorStateBase getStateImpl() {
 		return this.state;

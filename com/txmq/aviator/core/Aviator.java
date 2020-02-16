@@ -108,15 +108,11 @@ public class Aviator {
 	 * @throws ClassNotFoundException
 	 */
 	@SuppressWarnings("unchecked")
-	public static synchronized void init(Class<? extends IAviator> implementingClass) 
+	public static synchronized void init(IAviator consensus) 
 			throws ReflectiveOperationException 
 	{
 		
-		try {
-			implementor = implementingClass.newInstance();
-		} catch (InstantiationException | IllegalAccessException e) {
-			throw new IllegalArgumentException("Error configuring Aviator:  " + e.getMessage());
-		}
+		implementor = consensus;
 		
 		//Get the list of transaction processor packages from the config file
 		List<String> transactionPackages = (List<String>) AviatorConfig.get("transactionProcessors"); 
