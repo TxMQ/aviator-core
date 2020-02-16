@@ -23,7 +23,7 @@ public interface IAviator {
 	 * @param state Initialized state 
 	 * @return
 	 */
-	public initState(AviatorStateBase state);
+	public void initState(AviatorStateBase state);
 	
 	/**
 	 * Initializes the consensus mechanism with an initial shared state from a class.
@@ -31,7 +31,7 @@ public interface IAviator {
 	 * @param state State class
 	 * @return
 	 */
-	public initState(Class<? extends AviatorStateBase> stateClass);
+	public void initState(Class<? extends AviatorStateBase> stateClass);
 	
 	/**
 	 * Returns an instance of the application state.

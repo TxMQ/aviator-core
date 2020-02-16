@@ -25,7 +25,7 @@ public class AviatorTestConsensus extends Aviator implements IAviator {
 	 * @return
 	 */
 	@Override
-	public initState(AviatorStateBase state) {
+	public void initState(AviatorStateBase state) {
 		this.state = state;
 	}
 	
@@ -36,7 +36,7 @@ public class AviatorTestConsensus extends Aviator implements IAviator {
 	 * @return
 	 */
 	@Override
-	public initState(Class<? extends AviatorStateBase> stateClass) {
+	public void initState(Class<? extends AviatorStateBase> stateClass) {
 		this.state = stateClass.newInstance();
 	}
 	
