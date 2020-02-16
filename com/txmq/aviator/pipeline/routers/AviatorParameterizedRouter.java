@@ -14,30 +14,30 @@ import java.util.Set;
 import org.reflections.Reflections;
 import org.reflections.scanners.MethodAnnotationsScanner;
 
-import com.txmq.aviator.core.AviatorState;
 import com.txmq.aviator.messaging.AviatorTransactionType;
+import com.txmq.aviator.core.AviatorStateBase;
 import com.txmq.aviator.messaging.AviatorMessage;
-import com.txmq.aviator.messaging.websocket.grizzly.AviatorMessageJsonParser;
+import com.txmq.aviator.messaging.AviatorMessageJsonParser;
 import com.txmq.aviator.pipeline.metadata.AviatorNullPayloadType;
 
 /**
  * Generic router that enables us to "parameterize" the lookup of methods decorated with handler metadata.
- * Instead of just decorating a method with @ExoTransaction like we did in Exo 1, we can decorate a method
+ * Instead of just decorating a method with @AviatorTransaction like we did in Aviator 1, we can decorate a method
  * with metadata that describes which event or events it should react to, e.g. 
  * 
- *  @ExoHandler(PlatformEvents.executePreConsensus)
- *  @ExoHandler(PlatformEvents.executeConsensus)
- *  public void handleTransaction(ExoMessage message, ExoState state)
+ *  @AviatorHandler(PlatformEvents.executePreConsensus)
+ *  @AviatorHandler(PlatformEvents.executeConsensus)
+ *  public void handleTransaction(AviatorMessage message, AviatorState state)
  *  
  *  is intended to respond to both executePreConsensus and executeConsensus events.
  *  
  *  In the platform, we can now define routers for each event:
  *  
- *  ExoParameterizedRouter<ExoHandler, PlatformEvents> preConsensusRouter = 
- *  	new ExoParameterizedRouter<ExoHandler, PlatformEvents>(PlatformEvents.executePreConsensus);
+ *  AviatorParameterizedRouter<AviatorHandler, PlatformEvents> preConsensusRouter = 
+ *  	new AviatorParameterizedRouter<AviatorHandler, PlatformEvents>(PlatformEvents.executePreConsensus);
  *  
- *  ExoParameterizedRouter<ExoHandler, PlatformEvents> consensusRouter = 
- *  	new ExoParameterizedRouter<ExoHandler, PlatformEvents>(PlatformEvents.executeConsensus);
+ *  AviatorParameterizedRouter<AviatorHandler, PlatformEvents> consensusRouter = 
+ *  	new AviatorParameterizedRouter<AviatorHandler, PlatformEvents>(PlatformEvents.executeConsensus);
  *   
  *  will instantiate a routers that can pick up each decorator on our handleTransaction() method defined above.
  * 
@@ -46,7 +46,6 @@ import com.txmq.aviator.pipeline.metadata.AviatorNullPayloadType;
  * @param <T>
  * @param <E>
  */
-//public class ExoParameterizedRouter<T extends Annotation, E extends Enum<E>> extends ExoRouter<T> {
 public class AviatorParameterizedRouter<E extends Enum<E>> {
 	
 	protected E event;
@@ -65,18 +64,18 @@ public class AviatorParameterizedRouter<E extends Enum<E>> {
 	 * An instance is automatically created if it doesn't exist.
 	 * Transaction processor classes should be written as if they will
 	 * only be instantiated once, and should be careful about any
-	 * state they maintain.  Realize that Exo will probably only ever
+	 * state they maintain.  Realize that Aviator will probably only ever
 	 * create one instance.
 	 */
 	protected Map<Class<?>, Object> transactionProcessors;
 	
 	/**
-	 * No-op constructor.  ExoTransactionRouter will be instantiated by 
-	 * ExoPlatformLocator and TransactionServer, and managed by the platform.
+	 * No-op constructor.  AviatorTransactionRouter will be instantiated by 
+	 * AviatorBase and TransactionServer, and managed by the platform.
 	 * 
-	 * Applications should not create instances of ExoTransactionRouter.
+	 * Applications should not create instances of AviatorTransactionRouter.
 	 * 
-	 * @see com.txmq.aviator.core.PlatformLocator
+	 * @see com.txmq.aviator.core.swirlds.AviatorSwirlds
 	 */
 	public AviatorParameterizedRouter(Class<? extends Annotation> annotationType, E event) {
 		this.transactionMap = new HashMap<AviatorTransactionType, List<Method>>();
@@ -86,11 +85,11 @@ public class AviatorParameterizedRouter<E extends Enum<E>> {
 	}
 	
 	/**
-	 * Scans a package, e.g. "com.txmq.exo.messaging.rest" for 
-	 * @ExoHandler annotations using reflection and sets up the
+	 * Scans a package, e.g. "com.txmq.Aviator.messaging.rest" for 
+	 * @AviatorHandler annotations using reflection and sets up the
 	 * internal mapping of transaction type to processing method.
 	 * 
-	 * This method differs from ExoRouter's implementation by 
+	 * This method differs from AviatorRouter's implementation by 
 	 * checking the event value against the value supplied in 
 	 * the constructor before adding the method to the router.
 	 */
@@ -135,7 +134,7 @@ public class AviatorParameterizedRouter<E extends Enum<E>> {
 								this.transactionMap.get(transactionType).add(method);
 
 								//Add a mapping from transaction type to its payload if the payload isn't empty.
-								//We use ExoNullPayloadType as a placeholder for an empty payload in annotations
+								//We use AviatorNullPayloadType as a placeholder for an empty payload in annotations
 								if (payloadTypeMethod != null) {
 									Class<?> payloadType = (Class<?>) payloadTypeMethod.invoke(methodAnnotation);
 									if (!payloadType.equals(AviatorNullPayloadType.class)) {
@@ -159,7 +158,7 @@ public class AviatorParameterizedRouter<E extends Enum<E>> {
 		return this;
 	}
 	
-	public Serializable routeTransaction(AviatorMessage<?> message, AviatorState state) throws ReflectiveOperationException {
+	public Serializable routeTransaction(AviatorMessage<?> message, AviatorStateBase state) throws ReflectiveOperationException {
 		return this.invokeHandler(message.transactionType, message, state);
 	}
 	

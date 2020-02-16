@@ -1,10 +1,10 @@
-package com.txmq.aviator.persistence.nulllogger;
+package com.txmq.aviator.blocklogger.nulllogger;
 
 import org.apache.commons.collections4.keyvalue.DefaultKeyValue;
 
+import com.txmq.aviator.blocklogger.Block;
+import com.txmq.aviator.blocklogger.IBlockLogger;
 import com.txmq.aviator.messaging.AviatorMessage;
-import com.txmq.aviator.persistence.Block;
-import com.txmq.aviator.persistence.IBlockLogger;
 
 /**
  * A null implementation of a block logger.  Does nothing, but prevents 

@@ -1,4 +1,4 @@
-package com.txmq.aviator.persistence;
+package com.txmq.aviator.blocklogger;
 
 import java.io.Serializable;
 import java.math.BigInteger;

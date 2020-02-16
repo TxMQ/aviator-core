@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.txmq.aviator.core.PlatformLocator;
-import com.txmq.aviator.core.AviatorState;
+import com.txmq.aviator.core.Aviator;
+import com.txmq.aviator.core.AviatorStateBase;
 import com.txmq.aviator.messaging.AviatorTransactionType;
 import com.txmq.aviator.messaging.AviatorMessage;
 import com.txmq.aviator.messaging.AviatorNotification;
@@ -109,7 +109,7 @@ public class AviatorPipelineRouter {
 		return registeredEvents;
 	}
 	
-	public void routeMessageReceived(AviatorMessage<?> message, AviatorState state) {
+	public void routeMessageReceived(AviatorMessage<?> message, AviatorStateBase state) {
 		//System.out.println("Routing " + message.uuid + " to messageReceived");
 		try {
 			Serializable result = this.route(message, state, this.messageReceivedRouter);
@@ -125,7 +125,7 @@ public class AviatorPipelineRouter {
 		}
 	}
 	
-	public void routeExecutePreConsensus(AviatorMessage<?> message, AviatorState state) throws ReflectiveOperationException {
+	public void routeExecutePreConsensus(AviatorMessage<?> message, AviatorStateBase state) throws ReflectiveOperationException {
 		//System.out.println("Routing " + message.uuid + " to executePreConsensus");
 		try {
 			Serializable result = this.route(message, state, this.executePreConsensusRouter);
@@ -146,7 +146,7 @@ public class AviatorPipelineRouter {
 		}
 	}
 	
-	public void routeExecuteConsensus(AviatorMessage<?> message, AviatorState state) throws ReflectiveOperationException {
+	public void routeExecuteConsensus(AviatorMessage<?> message, AviatorStateBase state) throws ReflectiveOperationException {
 		System.out.println("Routing " + message.uuid + " to executeConsensus on " + state.getMyName());
 		try {
 			Serializable result = this.route(message, state, this.executeConsensusRouter);
@@ -165,11 +165,11 @@ public class AviatorPipelineRouter {
 		}		
 	}
 	
-	public void notifySubmitted(AviatorMessage<?> message, String nodeName) {
-		this.sendNotification(ReportingEvents.submitted, null, message, PipelineStatus.OK, nodeName);
+	public void notifySubmitted(AviatorMessage<?> message) {
+		this.sendNotification(ReportingEvents.submitted, null, message, PipelineStatus.OK, Aviator.getNodeName());
 	}
 	
-	private Serializable route(AviatorMessage<?> message, AviatorState state, AviatorParameterizedRouter<?> router) throws AviatorRoutingException {
+	private Serializable route(AviatorMessage<?> message, AviatorStateBase state, AviatorParameterizedRouter<?> router) throws AviatorRoutingException {
 		Serializable result = null;
 		try {
 			result = router.routeTransaction(message, state);

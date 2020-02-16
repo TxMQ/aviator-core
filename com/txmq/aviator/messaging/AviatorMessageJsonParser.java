@@ -1,4 +1,4 @@
-package com.txmq.aviator.messaging.websocket.grizzly;
+package com.txmq.aviator.messaging;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -17,8 +17,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.txmq.aviator.messaging.AviatorTransactionType;
-import com.txmq.aviator.messaging.AviatorMessage;
 
 public class AviatorMessageJsonParser extends ObjectMapper {
 	/**
