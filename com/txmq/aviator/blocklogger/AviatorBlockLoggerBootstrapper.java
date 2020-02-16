@@ -25,7 +25,7 @@ public class AviatorBlockLoggerBootstrapper {
 							.forName(loggerConfig.loggerClass);
 					IBlockLogger logger = loggerClass.newInstance();
 					logger.configure(loggerConfig.parameters);
-					blockLogger.addLogger(logger, Aviator.getState().getMyName());
+					blockLogger.addLogger(logger, Aviator.getNodeName());
 				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
 					throw new IllegalArgumentException("Error configuring block logger:  " + e.getMessage());
 				}
