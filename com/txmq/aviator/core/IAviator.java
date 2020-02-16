@@ -18,6 +18,22 @@ import com.txmq.aviator.messaging.AviatorMessage;
 public interface IAviator {
 	
 	/**
+	 * Initializes the consensus mechanism with an initial shared state.
+	 *
+	 * @param state Initialized state 
+	 * @return
+	 */
+	public initState(AviatorStateBase state);
+	
+	/**
+	 * Initializes the consensus mechanism with an initial shared state from a class.
+	 *
+	 * @param state State class
+	 * @return
+	 */
+	public initState(Class<? extends AviatorStateBase> stateClass);
+	
+	/**
 	 * Returns an instance of the application state.
 	 * 
 	 * @return

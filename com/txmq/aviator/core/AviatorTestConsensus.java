@@ -18,10 +18,28 @@ public class AviatorTestConsensus extends Aviator implements IAviator {
 	private AviatorStateBase state;
 	
 	
-	protected void initState(AviatorStateBase state) {
+	/**
+	 * Initializes the consensus mechanism with an initial shared state.
+	 *
+	 * @param state Initialized state 
+	 * @return
+	 */
+	@Override
+	public initState(AviatorStateBase state) {
 		this.state = state;
 	}
-
+	
+	/**
+	 * Initializes the consensus mechanism with an initial shared state from a class.
+	 *
+	 * @param state State class
+	 * @return
+	 */
+	@Override
+	public initState(Class<? extends AviatorStateBase> stateClass) {
+		this.state = stateClass.newInstance();
+	}
+	
 	@Override
 	public AviatorStateBase getStateImpl() {
 		return this.state;
