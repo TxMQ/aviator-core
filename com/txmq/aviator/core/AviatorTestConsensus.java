@@ -37,8 +37,12 @@ public class AviatorTestConsensus extends Aviator implements IAviator {
 	 * @return
 	 */
 	@Override
-	public void initState(Class<? extends AviatorStateBase> stateClass) throws InstantiationException {	 	
-		this.state = stateClass.newInstance();
+	public void initState(Class<? extends AviatorStateBase> stateClass) {	 
+		try {
+			this.state = stateClass.newInstance();
+		} catch (Exception e) {
+			throw new IllegalArgumentException("An error was encountered while instantiating the state class");
+		}
 	}
 	
 	@Override

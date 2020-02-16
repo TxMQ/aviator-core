@@ -31,7 +31,7 @@ public interface IAviator {
 	 * @param state State class
 	 * @return
 	 */
-	public void initState(Class<? extends AviatorStateBase> stateClass) throws InstantiationException;
+	public void initState(Class<? extends AviatorStateBase> stateClass);
 	
 	/**
 	 * Returns an instance of the application state.
