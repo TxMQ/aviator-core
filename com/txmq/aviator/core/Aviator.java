@@ -118,11 +118,14 @@ public class Aviator {
 			throw new IllegalArgumentException("Error configuring Aviator:  " + e.getMessage());
 		}
 		
+		//Get the list of transaction processor packages from the config file
+		List<String> transactionPackages = (List<String>) AviatorConfig.get("transactionProcessors"); 
+		
 		//Load transaction types
-		AviatorTransactionType.initialize();
+		AviatorTransactionType.initialize(transactionPackages);
 		
 		//Initialize the pipeline
-		initPipelineRouter((List<String>) AviatorConfig.get("transactionProcessors"));
+		initPipelineRouter(transactionPackages );
 		
 		// Find any static routines annotated with @AviatorStartup and invoke them
 		Reflections reflections = new Reflections(

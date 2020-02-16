@@ -3,8 +3,10 @@ package com.txmq.aviator.messaging;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -54,8 +56,11 @@ public class AviatorTransactionType implements Serializable {
 	 *  should not call this method themselves.
 	 */
 	//TODO:  Offer optimization through a whitelist of transaction type packages in exo-config.json
-	public static void initialize() throws ReflectiveOperationException {
-		Reflections reflections = new Reflections("com.txmq.aviator");
+	public static void initialize(List<String> packages) throws ReflectiveOperationException {
+		List<String> pkgs = new ArrayList<>(packages);
+		pkgs.add("com.txmq.aviator");
+		
+		Reflections reflections = new Reflections(pkgs.toArray());
 		Set<Class<?>> transactionTypeClasses = reflections.getTypesAnnotatedWith(TransactionTypes.class);
 		for (Class<?> ttc : transactionTypeClasses) {
 			TransactionTypes tta = ttc.getAnnotation(TransactionTypes.class);
