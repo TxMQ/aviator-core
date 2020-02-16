@@ -2,6 +2,7 @@ package com.txmq.aviator.core;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.lang.InstantiationException;
 
 import com.txmq.aviator.blocklogger.AviatorBlockLoggerBootstrapper;
 import com.txmq.aviator.messaging.AviatorMessage;
@@ -36,7 +37,7 @@ public class AviatorTestConsensus extends Aviator implements IAviator {
 	 * @return
 	 */
 	@Override
-	public void initState(Class<? extends AviatorStateBase> stateClass) {
+	public void initState(Class<? extends AviatorStateBase> stateClass) throws InstantiationException {	 	
 		this.state = stateClass.newInstance();
 	}
 	
