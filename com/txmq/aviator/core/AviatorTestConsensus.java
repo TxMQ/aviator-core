@@ -76,7 +76,7 @@ public class AviatorTestConsensus extends Aviator implements IAviator {
 				getPipelineRouter(this.state.getMyName()).routeExecuteConsensus(transaction, this.state);
 				
 				//TODO:  Factor this out so logging can be modularized
-				if (transaction.isInterrupted()) {
+				if (transaction.isInterrupted() == false) {
 					AviatorBlockLoggerBootstrapper.getBlockLogger()
 						.addTransaction(transaction, this.state.getMyName());
 				}
