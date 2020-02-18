@@ -7,8 +7,19 @@ The logger uses a plug-in mechanism to allow the logger to work with any type of
 
 ## Initializing the logger
 
-### Using aviator-config.json
-Block logging can be configured by supplying the logger class and a list of logger-specific parameters in the "blockLoggers" property.  If there is no "blockLoggers" property in the config file, logging will be disabled.  The following example shows how to initialize the CouchDB-based logger included in Aviator Core Framework:
+To use the logger, you'll need to add it as a dependency to your application's pom.xml file, and add some configuration information in 
+the aviator-config.json file.
+
+To configure the CouchDB-based block logger, you would add this dependency:
+
+```xml
+<dependency>
+  <groupId>com.txmq.aviator</groupId>
+  <artifactId>AviatorBlockLoggerCouchDB</artifactId>
+</dependency>
+```
+
+Block logging can be configured by supplying the logger class and a list of logger-specific parameters in the "blockLoggers" property of aviator-config.json.  If there is no "blockLoggers" property in the config file, logging will be disabled.  The following example shows how to initialize the CouchDB-based logger included in Aviator Core Framework:
 
 ```json
 "blockLoggers": [
@@ -31,30 +42,6 @@ Note that the parameters collection is specific to the logger implementation.  D
 One important change from Exo is that Aviator supports defining multiple block loggers.  This feature makes it easy for developers to set up chains for specific purposes.  For example, developers can extend block loggers to implement filtering, so that the logger captures only the transactions necessary for your application.  This feature required a change to the configuration file format.  Exo used a "blockLogger" property that was an object type.  Aviator uses a "blockLoggers" property whose type is array.
 
 The config file is the recommended method for configuring block logging.
-
-### In Code
-To initialize the logger in code, you create an instance of your storage-specific logger plugin and pass it to the logger.  The logger should be initialized in the init() method of your SwirldMain and can be done as part of the platform initialization:
-
-```Java
-String[] transactionProcessorPackages = {"com.txmq.aviator.messaging.rest", "com.txmq.socketdemo.transactions"};
-CouchDBBlockLogger blockLogger = new CouchDBBlockLogger(
-        "zoo-" + platform.getAddress().getSelfName().toLowerCase(),
-        "http",
-        "couchdb",
-        5984);
-AviatorPlatformLocator.init(platform, 
-                            SocketDemoTransactionTypes.class, 
-                            transactionProcessorPackages, 
-                            blockLogger);
-```
-
-It can also be initialized separately, but should still be done in the init() method of your SwirldMain:
-```java
-AviatorPlatformLocator.getBlockLogger.setLogger(
-    blockLogger, 
-    "zoo-" + platform.getAddress().getSelfName().toLowerCase()
-);
-```
 
 ## Building Transaction Logger Plug-ins
 If you need to support a logging target other than CouchDB, you can implement your own logger plugin.  Logger plugins implement the IBlockLogger interface.
