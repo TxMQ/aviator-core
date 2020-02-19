@@ -62,7 +62,7 @@ public class Aviator {
 	 * Tests if the application is running in test mode
 	 */
 	public static boolean isTestMode() {
-		return this.testMode;
+		return testMode;
 	}
 	
 
