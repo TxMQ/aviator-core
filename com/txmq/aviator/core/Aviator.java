@@ -30,12 +30,14 @@ public class Aviator {
 	 */
 	protected static Map<String, AviatorPipelineRouter> pipelineRouters = new HashMap<String, AviatorPipelineRouter>();
 	
+	private static Boolean testMode = false;
 	/**
 	 * Places Aviator in test mode, using the passed-in instance of a state. This is
 	 * useful for automated testing where you may want to configure an application
 	 * state manually and run a series of tests against that known state.
 	 */
 	public static void enableTestMode(AviatorStateBase state) {
+		testMode = true;
 		AviatorTestConsensus impl = new AviatorTestConsensus();
 		impl.initState(state);
 		implementor = impl;
@@ -50,6 +52,7 @@ public class Aviator {
 	 */
 	public static void enableTestMode(Class<? extends AviatorStateBase> stateClass)
 			throws InstantiationException, IllegalAccessException {
+		testMode = true;
 		AviatorTestConsensus impl = new AviatorTestConsensus();
 		impl.initState(stateClass.newInstance());
 		implementor = impl;
@@ -59,7 +62,7 @@ public class Aviator {
 	 * Tests if the application is running in test mode
 	 */
 	public static boolean isTestMode() {
-		return (implementor instanceof AviatorTestConsensus);
+		return this.testMode;
 	}
 	
 
