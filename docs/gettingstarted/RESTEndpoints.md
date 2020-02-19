@@ -120,7 +120,7 @@ import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.organization.catpeople.model.CatOwner;
+import com.organization.catpeople.CatOwner;
 import com.txmq.aviator.messaging.AviatorMessage;
 import com.txmq.aviator.messaging.AviatorTransactionType;
 import com.txmq.aviator.pipeline.ReportingEvents;
@@ -183,7 +183,7 @@ import com.txmq.aviator.pipeline.metadata.AviatorSubscriber;
 import com.txmq.aviator.pipeline.subscribers.AviatorSubscriberBase;
 
 import com.organization.catpeople.CatPeopleTransactionTypes;
-import com.organization.catpeople.model.CatOwner;
+import com.organization.catpeople.CatOwner;
 
 public class CatPeopleResponders extends AviatorSubscriberBase<AsyncResponse> {
 	

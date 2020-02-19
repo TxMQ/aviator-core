@@ -33,7 +33,7 @@ Right-click on your pom.xml file and select Run As -> Maven install to ask Maven
 Next, let's look at our main program.
 
 ```java
-import com.organization.catpeople.state.CatPeopleState;
+import com.organization.catpeople.CatPeopleState;
 import com.txmq.aviator.core.Aviator;
 import com.txmq.aviator.core.AviatorTestConsensus;
 
@@ -62,7 +62,7 @@ Here, we need to change the type of consensus plug-in we instantiate.  We also n
 
 ```
 import com.hedera.hashgraph.sdk.HederaStatusException;
-import com.organization.catpeople.state.CatPeopleState;
+import com.organization.catpeople.CatPeopleState;
 import com.txmq.aviator.core.Aviator;
 import com.txmq.aviator.core.hcs.AviatorHCSConsensus;
 

@@ -3,11 +3,11 @@ Build the Application's Shared State
 
 In a distributed ledger application we have the concept of a "shared state".  This state is shared among all nodes and is kept synchronized by the network. 
 
-Our first step is to code the data structure that will keep track of everyone's cats.  First, we'll code a POJO (plain old Java object) that represents each cat/owner pair.  In Eclipse, right-click on the src/main/java folder in the package explorer and select New Class.  Name the class "CatOwner", and place it in a package called "com.organization.catpeople.model".  In this class, we need to track the name of the cat and its owner.  We're also going to create a method to make an independent copy of a CatOwner.  We'll talk more about this method shortly.
+Our first step is to code the data structure that will keep track of everyone's cats.  First, we'll code a POJO (plain old Java object) that represents each cat/owner pair.  In Eclipse, right-click on the src/main/java folder in the package explorer and select New Class.  Name the class "CatOwner", and place it in a package called "com.organization.catpeople".  In this class, we need to track the name of the cat and its owner.  We're also going to create a method to make an independent copy of a CatOwner.  We'll talk more about this method shortly.
 
 Our CatOwner model looks like:
 ```java
-package com.organization.catpeople.model;
+package com.organization.catpeople;
 
 import java.io.Serializable;
 
@@ -28,7 +28,7 @@ public class CatOwner implements Serializable {
 }
 ```
 
-Next, we need a place to store our list of CatOwner instances.  We want our list of cats and their owners to live in the shared state so it's accessible across the network, and only modified according to the rules of the network.  In an Aviator application, we create our application's shared state by extending the framework's AviatorStateBase class.  In Eclipse, create another new class.  Let's call this one "CatPeopleState", and put it in the package "com.organization.catpeople.state".  Before we continue, we want this class to extend AviatorStateBase.  Click the "Browse" button next to the "superclass" field to locate it.  Click Finish.
+Next, we need a place to store our list of CatOwner instances.  We want our list of cats and their owners to live in the shared state so it's accessible across the network, and only modified according to the rules of the network.  In an Aviator application, we create our application's shared state by extending the framework's AviatorStateBase class.  In Eclipse, create another new class.  Let's call this one "CatPeopleState", and put it in the package "com.organization.catpeople".  Before we continue, we want this class to extend AviatorStateBase.  Click the "Browse" button next to the "superclass" field to locate it.  Click Finish.
 
 We need to do two things in our shared state implementation.  First, we need a data structure to store our cats in.  Let's add a private property to hold our cats, and a public accessor to retrieve a reference to the list.  It's important to note that Aviator is a multithreaded environment, so we need to be sure that our accessor is synchronized.  Add the following code:
 
@@ -57,13 +57,13 @@ public synchronized void copyFrom(AviatorStateBase old) {
 ```
 Our completed shared state implementation looks like this:
 ```java
-package com.organization.catpeople.state;
+package com.organization.catpeople;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.organization.catpeople.model.CatOwner;
+import com.organization.catpeople.CatOwner;
 import com.txmq.aviator.core.AviatorStateBase;
 
 public class CatPeopleState extends AviatorStateBase {

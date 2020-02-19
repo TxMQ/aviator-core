@@ -6,7 +6,7 @@ In Eclipse, right-click on the src/main/java folder in the package explorer and 
 We're going to start with the "test" consensus mechanism, which simulates how your application will run when it's connected to a real network without having to go through the effort to set one up.
 
 ```java
-import com.organization.catpeople.state.CatPeopleState;
+import com.organization.catpeople.CatPeopleState;
 import com.txmq.aviator.core.Aviator;
 import com.txmq.aviator.core.AviatorTestConsensus;
 
