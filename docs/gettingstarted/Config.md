@@ -43,3 +43,7 @@ We can see that there are three sections to the configuration:
 3. blockLoggers
   
     This section configures Aviator's blockchain logging framework.  Thinking back to our initial requirements for the system, we wanted to have a tamper-proof audit trail of transactions accepted by our application.  We can implement this in Aviator without any code.  Specifically, this section includes Aviator's CouchDB block logger implementation, and it includes the properties necessary to connect to the CouchDB server as well as the name of the database that it should use to log transactions.
+
+	Let's review:  We've now defined which transactions our application needs to support.  We've defined our application's data model and shared state.  We've implemented the application's business logic using Aviator handlers.  We've built a REST API so that we can connect to the application from the outside world.  We've written a configuration file that tells Aviator how it's configured and where it should look for the components we've built.
+
+	The final step is to [code our main program and run our application](Main.md).

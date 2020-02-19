@@ -14,5 +14,5 @@ Fortunately, Aviator Core makes it easy for Java developers who don't know much 
 * [Develop the Application's Business Logic](BusinessLogic.md)
 * [Create REST Endpoints](RestEndpoints.md)
 * [Configuring Aviator using aviator-config.json](Config.md)
-* [Build our Main Program](Main.md)
+* [Build our Main Program and Run the Application](Main.md)
 
