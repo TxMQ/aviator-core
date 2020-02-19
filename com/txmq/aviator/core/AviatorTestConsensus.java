@@ -93,6 +93,6 @@ public class AviatorTestConsensus extends Aviator implements IAviator {
 	
 	@Override
 	public String getNodeNameImpl() {
-		return "node";
+		return this.state.getMyName();
 	}
 }

@@ -9,7 +9,7 @@ public class AviatorStateBase {
 	 * Node name that this state belongs to.  Tracked for disambiguation 
 	 * purposes when multiple nodes run in the same JVM (e.g. swirlds).
 	 */
-	protected String myName;
+	protected String myName = "node";
 
 	public String getMyName() {
 		return this.myName;
