@@ -37,7 +37,12 @@ In our main program, we start by instantiating the `AviatorTestConsensus` plug-i
 Starting the Application
 ------------------------
 
-The moment we've all been waiting for has arrived!  We're ready to build and run our application.  Right-click on our main program and select Run As -> Java Application or Debug As -> Java Application.  When the application starts up, you'll see some output in the console window similar to this:
+The moment we've all been waiting for has arrived!  We're just about ready to build and run our application.  Before we do, recall that we added and configured Aviator's CouchDB Block Logger plug-in.  That means we'll need a CouchDB.  If you're running Docker, it's super easy to start one up.  From your terminal, run:
+```
+docker run -p 5984:5984 -d couchdb
+```
+
+Now that we have our CouchDB up, we can run the application.  In Eclipse, right-click on our main program and select Run As -> Java Application or Debug As -> Java Application.  When the application starts up, you'll see some output in the console window similar to this:
 
 ```
 Adding routes for messageReceived in package com.organization.catpeople
@@ -251,6 +256,29 @@ The response looks something like this (edited for clarity):
 ```
 
 Looking at this response, we can see that the transaction's status is set to `ERROR`, indicating that it failed.  The exception we generated as part of our business logic is captured in the payload, including the message we generated in our handler to indicate that someone already owns a cat with that name.
+
+## Block Logging
+Aviator's block logger feature will create a blockchain-based audit log of all transactions successfully executed by the application automatically.  When we configured the CouchDB logger, we gave it a block size of 5, meaning it produces blocks every five transactions.  Add a few more cats until you've successfully submitted five transactions to ensure that a block was generated.  In the Console tab in Eclipse, you'll see some output like:
+```
+Feb 19, 2020 2:41:28 PM org.lightcouch.CouchDbClient process
+INFO: > PUT /catpeople/84419a5a4b3d4c79b917ce8071fa83e4
+Feb 19, 2020 2:41:28 PM org.lightcouch.CouchDbClient process
+INFO: < Status: 201
+```
+
+That indicates that a block has been written to the database.  Open your browser and navigate to http://localhost:5984/_utils, which will bring up Fauxton, CouchDB's web-based explorer.  Here, you can see that the application has created our logging database called "catpeople".
+
+![CouchDB databases image](couch-databases.png)
+
+Click on the "catpeople" link to view the contents of the database.
+
+![CouchDB database image](couch-db.png)
+
+There are two documents in our CouchDB database.  You may have more if you added lots of cats.  The document with a key of "_design/exoBlockLoggerViews" defines some CouchDB views used by the block logger.  The other document contains our generated block.  If you open that document, you'll see something like the following:
+
+![CouchDB Block](couch-block.png)
+
+The block contains an ordered list of the transactions processed by the application, long with some header information such as the block's index, hash and the hash of the previous block.
 
 ## Wow, we just built a Dapp!
 Well, kind of.  We built a Dapp on a simulated consensus mechanism.  We can't support running this applications across multiple nodes as-is.  Here's where the power of Aviator really comes into effect.
