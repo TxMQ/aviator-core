@@ -9,6 +9,7 @@ public class MessagingConfig {
 	public Integer derivedPort;
 	public boolean secured;
 	public String[] handlers;
+	public String publishedHostName;
 	public KeystoreConfig clientKeystore;
 	public KeystoreConfig clientTruststore;
 	public KeystoreConfig serverKeystore;
