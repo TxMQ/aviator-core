@@ -8,11 +8,20 @@ Now, you could just whip up an application in Java, but cat people are sketchy a
 The only problem is, you're a Java developer.  You've never built a distributed ledger application before!  You don't know Solidity, and the documentation for Hyperledger Fabric is as thick as a telephone book.
 
 Fortunately, Aviator Core makes it easy for Java developers who don't know much about DLT to build DLT applications. 
+
+### Prerequisites
+* Java 10+ (OpenJDK 11 preferred)
+* Maven
+* A Java IDE.  Eclipse is used in the walkthrough.
+* Docker or a CouchDB instance
+
+### Walkthrough
 * [Planning the Implementation](Planning.md)
 * [Create a Java Project and Set Up Maven Dependencies](Maven.md)
-* [Build the Application's Shared State](MainState.md)
+* [Build the Application's Shared State](SharedState.md)
 * [Develop the Application's Business Logic](BusinessLogic.md)
-* [Create REST Endpoints](RestEndpoints.md)
+* [Create REST Endpoints](RESTEndpoints.md)
 * [Configuring Aviator using aviator-config.json](Config.md)
 * [Build our Main Program and Run the Application](Main.md)
-
+* [Deploy on Hedera Consensus Services](DeployHCS.md)
+* [Closing Thoughts](Closing.md)

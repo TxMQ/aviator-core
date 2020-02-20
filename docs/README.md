@@ -5,7 +5,7 @@ Aviator Core Framework for Distributed Ledger Application Development
 
 The Aviator Core Framework is a Java-based application development framework that makes it easy for Java developers to quickly build applications using blockchain/DLT technologies.  Aviator Core Framework is designed to be modular.  You can mix and match the pieces you need and swap them out with minimal changes required to your application code. It isolates developers from the mechanics of any specific blockchain or DLT mechanics, shortening the learning curve typically associated with learning how to build applications on this technology.
 
-See our [Getting Started](gettingstarted/GettingStarted.md) page to learn how to build applications on Aviator Core Framework.
+See our [Getting Started](gettingstarted/README.md) page to learn how to build applications on Aviator Core Framework.
 
 Goals
 -----
@@ -61,7 +61,7 @@ We recognize that there is ambiguity in the terminology between Aviator, Aviator
 
 We have big plans for Aviator as a platform, but we want to stress that **the Aviator Core Framework is free and open source, and will continue to be free and open source.**  
 
-If your organization is interested in interested in the Aviator Platform, please visit (http://aviatordlt.com) and fill out the contact form to start a conversation!
+If your organization is interested in interested in the Aviator Platform, please visit http://aviatordlt.com and fill out the contact form to start a conversation!
 
 ### Comparison Between Aviator Core Framework and Aviator Platform Components
 
@@ -118,8 +118,8 @@ If your organization is interested in interested in the Aviator Platform, please
 |  | Not Included | 
 
 ### More Information
-There's more to learn about building Aviator applications.  First, check out the (Aviator Zoo Demo Application)[https://github.com/txmq/aviator-zoo-demo] and see how the demo is put together.  It illustrates all of the concepts currently supported by Exo, and is dockerized so you can easily run the application stack.
+There's more to learn about building Aviator applications.  First, check out the [Aviator Zoo Demo Application](https://github.com/txmq/aviator-zoo-demo) and see how the demo is put together.  It illustrates all of the concepts currently supported by Exo, and is dockerized so you can easily run the application stack.
 
 When you're ready to dive into development, check the [docs folder](docs/README.md) for additional README files that describe how to use each feature in more detail.
 
-If your organization is interested in interested in the Aviator Platform, please visit (http://aviatordlt.com) and fill out the contact form to start a conversation!
+If your organization is interested in interested in the Aviator Platform, please visit http://aviatordlt.com and fill out the contact form to start a conversation!
