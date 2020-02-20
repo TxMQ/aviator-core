@@ -1,7 +1,7 @@
 package com.txmq.aviator.config.model;
 
-import com.swirlds.platform.Platform;
 import com.txmq.aviator.config.AviatorConfiguration;
+import com.txmq.aviator.core.Aviator;
 
 @AviatorConfiguration(properties= {"rest", "socketMessaging"})
 public class MessagingConfig {
@@ -9,12 +9,13 @@ public class MessagingConfig {
 	public Integer derivedPort;
 	public boolean secured;
 	public String[] handlers;
+	public String publishedHostName;
 	public KeystoreConfig clientKeystore;
 	public KeystoreConfig clientTruststore;
 	public KeystoreConfig serverKeystore;
 	public KeystoreConfig serverTruststore;
 	
-	public MessagingConfig getConfigForGrizzly(Platform platform, boolean testMode) {
+	public MessagingConfig getConfigForGrizzly() {
 		MessagingConfig result = new MessagingConfig();
 		
 		//If a port has been defined in the config, use it over the derived port.
@@ -25,11 +26,7 @@ public class MessagingConfig {
 			if (this.derivedPort != null) {
 				//Calculate the port for socket connections based on the hashgraph's port
 				//If we're in test mode, mock this up to be a typical value, e.g. 5220X
-				if (!testMode) {
-					result.port = platform.getAddress().getPortExternalIpv4() + this.derivedPort;
-				} else {
-					result.port = 50204 + this.derivedPort;
-				}
+				result.port = Aviator.getBasePort() + this.derivedPort;
 			} else {
 				throw new IllegalArgumentException(
 					"One of \"port\" or \"derivedPort\" must be defined."

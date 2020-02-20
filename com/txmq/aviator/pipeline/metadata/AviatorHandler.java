@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 import com.txmq.aviator.pipeline.PlatformEvents;
 
 /**
- * This annotation is used to identify methods which receive and respond to Exo platform
+ * This annotation is used to identify methods which receive and respond to Aviator platform
  * events.  These methods typically implement your application's business logic at various
  * stages of the pipeline.
  * 
