@@ -5,7 +5,7 @@ Aviator Core Framework for Distributed Ledger Application Development
 
 The Aviator Core Framework is a Java-based application development framework that makes it easy for Java developers to quickly build applications using blockchain/DLT technologies.  Aviator Core Framework is designed to be modular.  You can mix and match the pieces you need and swap them out with minimal changes required to your application code. It isolates developers from the mechanics of any specific blockchain or DLT mechanics, shortening the learning curve typically associated with learning how to build applications on this technology.
 
-See our [Getting Started](GettingStarted.md) page to learn how to build applications on Aviator Core Framework.
+See our [Getting Started](gettingstarted/GettingStarted.md) page to learn how to build applications on Aviator Core Framework.
 
 Goals
 -----
