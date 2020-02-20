@@ -1,0 +1,1 @@
+> Rule #1:  Only access the shared state when it has been provided by the pipeline.
