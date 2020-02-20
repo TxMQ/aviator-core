@@ -9,6 +9,10 @@ The only problem is, you're a Java developer.  You've never built a distributed 
 
 Fortunately, Aviator Core makes it easy for Java developers who don't know much about DLT to build DLT applications. 
 
+### Introduction
+
+You may want to review [Developing Hashgraph Applications Using Aviator Core Framework (presentation)](../dev-with-aviator-core/index.html) before getting started if you're new to Aviator Core Framework.
+
 ### Prerequisites
 * Java 10+ (OpenJDK 11 preferred)
 * Maven

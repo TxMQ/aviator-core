@@ -7,16 +7,8 @@ The move to Aviator from Exo has also introduced improvements in framework modul
 
 ## Initializing the Framework Using a Configuration File
 
-Initializing Aviator using a configuration file is a one-line operation:
+Aviator 1.2 has deprecated programmatic configuration.  All platform configuration is now done through the aviator-config.json file.
 
-```java
-PlatformLocator.initFromConfig(platform, "path/to/aviator-config.json");
-```
-
-If your aviator-config.json file is located in the same folder as the Hashgraph application will run in, you can omit the path parameter:
-```java
-PlatformLocator.initFromConfig(platform);
-```
 An aviator-config.json file uses the following structure:
 ```json
 {
@@ -55,6 +47,11 @@ An aviator-config.json file uses the following structure:
 }
 ```
 
+One of the big changes to Aviator 1.2 under the hood is a move to a much more flexible model for including and configuring platform components at startup.  For example, in previous releases the REST/Websocket feature was baked into the platform.  You always had it, whether you wanted it or not.  Now, you include the REST server as a JAR dependency and configure it through aviator-config.json.  If your application doesn't need this functionality or you want to use a different approach, you can.  This model allows us to add new components to the platform without making changes to the core framework, and developers include only what they need.
+
+The impact to aviator-config.json is that each component can define its own syntax for configuration, which the core framework only discovers at startup.  This document provides a high-level overview of basic configuration for common components, but isn't an exhaustive list of all of the possible parameters in an aviator-config.json file.
+
+Please see the documentation for a particular component to learn how to configure it using aviator-config.json.
 
 ## Configuring Transaction Processors
 You can configure automatic transaction routing to processors by setting the "transactionProcessors" property.  Pass an array of package names containing transaction processors for Aviator to scan:
@@ -67,41 +64,6 @@ You can configure automatic transaction routing to processors by setting the "tr
 
 See the (Pipeline)[Pipeline.md] documentation for more information on transaction routing.
 
-## Configuring Java Socket Messaging
-You can configure Aviator's socket messaging feature by defining the port or derived port Exo should listen on, and a list of packages for Exo to search for socket message handlers:
-```json
-"socketMessaging": {
-  "port": -1,
-  "derivedPort": 1000,
-  "handlers": [
-    "com.txmq.socketdemo.socket"
-  ]
-}
-```
-
-In this example, we've asked Aviator to calculate the port it should listen on based on the port the hashgraph node listens on.  This is typical for applications that run on the SDK where the Swirlds browser starts up multiple nodes on the same host.  The above definition will add 1000 to the hashgraph's port to determine which port to listen on.  You can also define a fixed port by setting a value other than -1 in the port property.  If the port is set, then derivedPort will be ignored.
-If no socketMessaging object is defined, Aviator will not create a transaction server instance to listen for socket requests.
-
-The example above sets up an unsecured socket - there is no encyption in transit, nor are clients authenticated.  This configuration provides no security whatsoever and should only be used for experimenting with the framework or while troubleshooting.  To set up a TLS-secured socket authenticated using X.509 certificates, we can pass in the locations and passwords for the keystores containing client and server side keys, and Aviator will configure a secured socket:
-```json
-"socketMessaging": {
-    "port": -1,
-    "derivedPort": 1000,
-    "secured": true,
-    "clientKeystore": {
-        "path": "client.public",
-        "password": "client"
-    },
-    "serverKeystore": {
-        "path": "server.private",
-        "password": "server"
-    },
-    "handlers": [
-        "com.txmq.socketdemo.socket"
-    ]
-}
-```
-
 ## Configuring REST Endpoints
 REST endpoints are configured using the same configuration object format as socket messaging.  Set the port or derivedPort to accept requests on, and a list of packages that contain JAX-RS-annotated request handlers:
 ```json
@@ -113,7 +75,7 @@ REST endpoints are configured using the same configuration object format as sock
   ]
 }
 ```
-As with socket messaging, if no REST configuration is defined, then REST will be disabled.
+If no REST configuration is defined, then REST will be disabled.
 
 ## Configuring Block Logging
 Block logging can be configured by supplying the logger class and a list of logger-specific parameters in the "blockLoggers" property.  If there is no "blockLoggers" property in the config file, logging will be disabled.  The following example shows how to initialize the CouchDB-based logger included in Aviator Core Framework:

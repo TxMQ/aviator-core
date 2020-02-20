@@ -1,6 +1,8 @@
 Aviator Transaction Logging
 =======================
 
+> We are in the process of updating and improving documentation for Aviator 1.2.  Please bear with us while we improve our documentation.
+
 Aviator provides an easy-to-use transaction logger that can automatically log transactions to persistent storage in a blockchain data structure.  The logger groups transactions into blocks and writes those blocks to storage.  Each block is signed with an SHA-256 hash, and the block incorporates the hash of the previous block to maintain data integrity in the chain.
 
 The logger uses a plug-in mechanism to allow the logger to work with any type of data storage.  A CouchDB plugin is provided with more implementations on the way.

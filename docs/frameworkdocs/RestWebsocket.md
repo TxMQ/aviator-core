@@ -1,6 +1,8 @@
 Aviator Core Framework REST/Websocket Server
 ============================================
 
+> There is more documentation to come - please bear with us while we update documentation for Aviator 1.2
+
 The REST/Websocket Feature is a full-featured JAX-RS web service container and Websocket container that uses the Grizzly HTTP server.
 Any JAX-RS annotated web service can be hosted by Grizzly, and Grizzly includes support for websockets as well.  The demo applications
 use the feature to expose APIs to web clients using both websockets and REST over HTTP.
