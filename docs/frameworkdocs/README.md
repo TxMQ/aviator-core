@@ -4,7 +4,7 @@ Aviator Core Framework Components
 > The documentation for Aviator 1.2 is under construction.  Please bear with us while we bring this documentation up to snuff.  We didn't want to wait to get the good stuff out!
 
 ## Overview
-* [Developing Hashgraph Applications Using Aviator Core Framework (presentation)](../dev-with-aviator-core/index.html)
+* [Developing Hashgraph Applications Using Aviator Core Framework (presentation)](../dev-with-aviator-core/presentation.pdf)
 * [Introductory Tutorial:  Your First Hedera Consensus Services Application with Aviator Core Framework](../gettingstarted/README.md)
 
 ## Pipeline Programming Model

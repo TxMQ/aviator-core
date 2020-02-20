@@ -11,7 +11,7 @@ Fortunately, Aviator Core makes it easy for Java developers who don't know much 
 
 ### Introduction
 
-You may want to review [Developing Hashgraph Applications Using Aviator Core Framework (presentation)](../dev-with-aviator-core/index.html) before getting started if you're new to Aviator Core Framework.
+You may want to review [Developing Hashgraph Applications Using Aviator Core Framework (presentation)](../dev-with-aviator-core/presentation.pdf) before getting started if you're new to Aviator Core Framework.
 
 ### Prerequisites
 * Java 10+ (OpenJDK 11 preferred)
