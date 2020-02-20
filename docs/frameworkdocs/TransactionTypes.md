@@ -32,8 +32,8 @@ The logic in your application that handles each kind of transaction is annotated
 
 ```
 @AviatorHandler(namespace=ZooDemoTransactionTypes.NAMESPACE,
-				transactionType=ZooDemoTransactionTypes.GET_ZOO, 
-				events={PlatformEvents.messageReceived})
+		transactionType=ZooDemoTransactionTypes.GET_ZOO, 
+		events={PlatformEvents.messageReceived})
 public Zoo getZoo(AviatorMessage<?> message, SocketDemoState state) {
     Zoo zoo = new Zoo();
     zoo.setLions(state.getLions());

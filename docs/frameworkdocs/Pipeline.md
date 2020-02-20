@@ -41,7 +41,9 @@ Transactions can be received through WebSockets, REST, or Java sockets.  When im
 @Produces(MediaType.APPLICATION_JSON)
 public void addAnimal(Animal animal, @Suspended final AsyncResponse response) {
     AviatorMessage<Animal> message = new AviatorMessage<Animal>(
-            new AviatorTransactionType(ZooDemoTransactionTypes.NAMESPACE, ZooDemoTransactionTypes.ADD_ANIMAL), 
+            new AviatorTransactionType(
+                ZooDemoTransactionTypes.NAMESPACE, 
+                ZooDemoTransactionTypes.ADD_ANIMAL), 
             animal
     );
     this.subscriberManager.registerResponder(message, ReportingEvents.transactionComplete, response);
@@ -68,8 +70,7 @@ The (mesageReceived) event is emitted **before** a transaction is submitted to t
 This example shows how the "get zoo" transaction's (messageReceived) event is handled:
 
 ```java
-@AviatorHandler(
-                namespace=ZooDemoTransactionTypes.NAMESPACE,
+@AviatorHandler(namespace=ZooDemoTransactionTypes.NAMESPACE,
                 transactionType=ZooDemoTransactionTypes.GET_ZOO, 
                 events={PlatformEvents.messageReceived})
 public Zoo getZoo(AviatorMessage<?> message, SocketDemoState state) {
@@ -92,8 +93,7 @@ The (executePreConsensus) and (executeConsensus) events are emitted when `Swirld
 
 This example shows how we handle "add animal" transactions in the demo application:
 ```java
-@AviatorHandler(
-                namespace=ZooDemoTransactionTypes.NAMESPACE, 
+@AviatorHandler(namespace=ZooDemoTransactionTypes.NAMESPACE, 
                 transactionType=ZooDemoTransactionTypes.ADD_ANIMAL, 
                 events={PlatformEvents.executePreConsensus, PlatformEvents.executeConsensus},
                 payloadClass=Animal.class)
@@ -127,8 +127,7 @@ The platform will pass an `AviatorNotification` to a subscriber that indicates t
 
 Earlier, in "Handling (messageReceived)", we saw the demo application's (messageReceived) handler for `GET_ZOO` requests:
 ```java
-@AviatorHandler(
-                namespace=ZooDemoTransactionTypes.NAMESPACE,
+@AviatorHandler(namespace=ZooDemoTransactionTypes.NAMESPACE,
                 transactionType=ZooDemoTransactionTypes.GET_ZOO, 
                 events={PlatformEvents.messageReceived})
 public Zoo getZoo(AviatorMessage<?> message, SocketDemoState state) {
@@ -145,8 +144,7 @@ public Zoo getZoo(AviatorMessage<?> message, SocketDemoState state) {
 In this case, a handler for (submitted) or (transactionComplete) would receive an `AviatorNotification` with the returned zoo as its payload (`AviatorNotification<Zoo>`).  We have such a handler, for (transactionComplete):
 
 ```java
-@AviatorSubscriber(	
-                    namespace=ZooDemoTransactionTypes.NAMESPACE,
+@AviatorSubscriber(	namespace=ZooDemoTransactionTypes.NAMESPACE,
                     transactionType=ZooDemoTransactionTypes.GET_ZOO, 
                     events={ReportingEvents.transactionComplete})
 public void getZooTransactionCompleted(AviatorNotification<?> notification) {
@@ -168,8 +166,7 @@ Our subscriber method now needs that responder in order to relay the notificatio
 For web or Java sockets, we follow a similar pattern.  Remember that for socket-based transactions, Aviator automatically managers responders and will have maintained an association between the original message and the socket that received it.  Aviator provides base classes for socket subscribers that automate the task or returning a notification to a client through the correct socket, and our subscriber code simply passes in the notification:
 
 ```java
-@AviatorSubscriber(	
-                    namespace=ZooDemoTransactionTypes.NAMESPACE,
+@AviatorSubscriber(	namespace=ZooDemoTransactionTypes.NAMESPACE,
                     transactionType=ZooDemoTransactionTypes.GET_ZOO, 
                     events={ReportingEvents.transactionComplete})
 public void getZooTransactionProgress(AviatorNotification<?> notification) {
@@ -182,8 +179,7 @@ public void getZooTransactionProgress(AviatorNotification<?> notification) {
 For `GET_ZOO`, which is read only, we only care about the end result - either we get an error (which will be attached to the notification) or we get the result.  When we add animals, the transaction moves through the entire pipeline - and we can return information about what's happening to the transaction at each stage:
 
 ```java
-@AviatorSubscriber(	
-                    namespace=ZooDemoTransactionTypes.NAMESPACE,
+@AviatorSubscriber(namespace=ZooDemoTransactionTypes.NAMESPACE,
                     transactionType=ZooDemoTransactionTypes.ADD_ANIMAL, 
                     events= {	
                             ReportingEvents.submitted, 
